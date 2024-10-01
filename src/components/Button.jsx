@@ -5,6 +5,8 @@ const themeClassMap = {
   outline: 'border-purple-700 bg-transparent text-purple-700 hover:text-purple-500 hover:border-purple-500',
 };
 
+const buttonText = "Buy Now"
+
 export const Button = (props) => {
   return (
     <Link
@@ -14,7 +16,7 @@ export const Button = (props) => {
       }`}
       data-sb-object-id={props.id}
     >
-      <span data-sb-field-path="label">{props.label}</span>
+      <span data-sb-field-path="label">{buttonText}</span>
     </Link>
   );
 };
