@@ -1,12 +1,10 @@
 import { notFound } from 'next/navigation';
 import { Hero } from '../components/Hero.jsx';
-import { Stats } from '../components/Stats.jsx';
 import { getPageFromSlug } from '../utils/content.js';
 import  FormTest  from '../components/FormTest.jsx';
 
 const componentMap = {
   hero: Hero,
-  stats: Stats,
   form: FormTest,
 };
 

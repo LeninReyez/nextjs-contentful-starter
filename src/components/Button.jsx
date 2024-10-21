@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 const themeClassMap = {
-  default: 'border-purple-700 bg-purple-700 text-white hover:bg-purple-500 hover:border-purple-500',
-  outline: 'border-purple-700 bg-transparent text-purple-700 hover:text-purple-500 hover:border-purple-500',
+  default: 'p-2 mt-4 border border-green-700 bg-lightgray-700 text-white rounded hover:bg-gray-300 hover:border-purple-500 transition',
+  outline: 'border-purple-700 bg-transparent text-purple-700 hover:text-darkgray-500 hover:border-purple-500',
 };
 
 const buttonText = "Buy Now"
