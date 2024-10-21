@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { Hero } from '../components/Hero.jsx';
 import { Stats } from '../components/Stats.jsx';
 import { getPageFromSlug } from '../utils/content.js';
+// import { Test } from './Test.jsx';
+
 
 const componentMap = {
   hero: Hero,
@@ -10,6 +12,7 @@ const componentMap = {
 
 export default async function ComposablePage() {
   try {
+    
     const page = await getPageFromSlug("/");
 
     if (!page) {
