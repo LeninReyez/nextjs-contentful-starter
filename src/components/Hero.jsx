@@ -25,16 +25,8 @@ export const Hero = (props) => {
           {props.button && <Button {...props.button} />}
         </div>
         <div className="w-full aspect-[4/3] flex-1 relative overflow-hidden rounded-md">
-          {props.image && (
-            <Image
-              src={props.image.src}
-              alt={props.image.alt}
-              fill
-              className='object-cover'
-              sizes="(max-width: 767px) 100vw, (max-width: 1200px) 50vw, 600px"
-              data-sb-field-path="image"
-            />
-          )}
+        <img src="/fpo-sandwich.jpg" alt="Description of the image" />
+        
         </div>
       </div>
     </div>
