@@ -7,7 +7,7 @@ const themeClassMap = {
   imgRight: 'md:flex-row',
 };
 
-const heading = "Buy Sara's delicious Cookies!"
+const heading = "Delicious Cookies!"
 
 export const Hero = (props) => {
   return (
@@ -19,13 +19,13 @@ export const Hero = (props) => {
           </h1>
           {props.body && (
             <Markdown options={{ forceBlock: true }} className="mb-6 text-lg" data-sb-field-path="body">
-              {props.body}
+              Cookies made with health in mind.
             </Markdown>
           )}
           {props.button && <Button {...props.button} />}
         </div>
         <div className="w-full aspect-[4/3] flex-1 relative overflow-hidden rounded-md">
-        <img src="/fpo-sandwich.jpg" alt="Description of the image" />
+        <img src="/cookies.jpg" alt="Description of the image"/>
         
         </div>
       </div>
