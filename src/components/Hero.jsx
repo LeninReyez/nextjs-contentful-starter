@@ -6,7 +6,7 @@ const themeClassMap = {
   imgLeft: 'md:flex-row-reverse',
   imgRight: 'md:flex-row',
 };
-const heading = "Cookies by Sara"
+const heading = "Oak & Pine"
 const content = "Craving a sweet treat without the guilt? You’ve come to the right place! At Cookies by Sara, we believe that healthy eating shouldn’t mean sacrificing flavor. Our delicious cookies are crafted with wholesome ingredients, bursting with natural goodness, and designed to satisfy your cravings.From rich, nutty flavors to delightful fruity blends, our cookies are made with love, using only the finest ingredients. Whether you’re looking for a post-workout snack, a midday pick-me-up, or a delightful dessert, we have something for everyone! Join us on this delicious journey to a healthier lifestyle, one cookie at a time. Dive into our mouthwatering selection and discover how indulgent health can truly be!"
 
 export const Hero = (props) => {
