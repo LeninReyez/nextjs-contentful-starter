@@ -23,7 +23,7 @@ export const Hero = (props) => {
               {content}
             </Markdown>
           )}
-          {props.button && <Button {...props.button} />}
+          {/* {props.button && <Button {...props.button} />} */}
         </div>
         <div className="w-full aspect-[4/3] flex-1 relative overflow-hidden rounded-md">
         <img src="/cookies.jpg" alt="Description of the image"/>
