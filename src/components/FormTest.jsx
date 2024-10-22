@@ -55,7 +55,7 @@ const FormTest = () => {
         {errors.email && <span style={{ color: 'red' }}>{errors.email.message}</span>}
       </div>
 
-      <div>
+      {/* <div>
         <label htmlFor="password">Password:</label>
         <input
           id="password"
@@ -63,16 +63,16 @@ const FormTest = () => {
           {...register('password', { required: 'Password is required' })}
         />
         {errors.password && <span style={{ color: 'red' }}>{errors.password.message}</span>}
-      </div>
+      </div> */}
 
       <div>
         <label>
           <input
             type="radio"
-            value="option1"
-            {...register('option', { required: 'You must select an option' })}
+            value="Small"
+            {...register('cookie-size', { required: 'You must select an option' })}
           />
-          Option 1
+          Small
         </label>
       </div>
 
@@ -80,10 +80,10 @@ const FormTest = () => {
         <label>
           <input
             type="radio"
-            value="option2"
-            {...register('option', { required: 'You must select an option' })}
+            value="Medium"
+            {...register('cookie-size', { required: 'You must select an option' })}
           />
-          Option 2
+          Medium
         </label>
       </div>
 
@@ -91,10 +91,10 @@ const FormTest = () => {
         <label>
           <input
             type="radio"
-            value="option3"
-            {...register('option', { required: 'You must select an option' })}
+            value="Large"
+            {...register('cookie-size', { required: 'You must select an option' })}
           />
-          Option 3
+          Large
         </label>
       </div>
 
@@ -105,12 +105,12 @@ const FormTest = () => {
         <label>
           <input
             type="checkbox"
-            value="option1"
-            {...register('options', {
+            value="vanilla"
+            {...register('flavors', {
               required: 'You must select at least one option',
             })}
           />
-          Option 1
+          vanilla
         </label>
       </div>
 
@@ -118,10 +118,10 @@ const FormTest = () => {
         <label>
           <input
             type="checkbox"
-            value="option2"
-            {...register('options')}
+            value="chocolate"
+            {...register('flavors')}
           />
-          Option 2
+          chocolate
         </label>
       </div>
 
@@ -129,10 +129,10 @@ const FormTest = () => {
         <label>
           <input
             type="checkbox"
-            value="option3"
-            {...register('options')}
+            value="strawberry"
+            {...register('flavors')}
           />
-          Option 3
+          strawberry
         </label>
       </div>
 
@@ -140,10 +140,10 @@ const FormTest = () => {
         <label>
           <input
             type="checkbox"
-            value="option4"
-            {...register('options')}
+            value="mint"
+            {...register('flavors')}
           />
-          Option 4
+          mint
         </label>
       </div>
 
