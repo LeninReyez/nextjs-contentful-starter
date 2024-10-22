@@ -66,6 +66,8 @@ const FormTest = () => {
       </div> */}
 
       <div>
+        <p>Select your cookie size:</p>
+        <br></br>
         <label>
           <input
             type="radio"
@@ -98,10 +100,10 @@ const FormTest = () => {
         </label>
       </div>
 
-      
-      <hr></hr>
 
       <div>
+      <p>Select your prefered flavors: </p>
+      <br></br>
         <label>
           <input
             type="checkbox"
