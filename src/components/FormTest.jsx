@@ -2,6 +2,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import '../../styles/styles.css';
+import emailjs from 'emailjs-com';
 
 const FormTest = () => {
   // Initialize useForm
@@ -11,13 +12,22 @@ const FormTest = () => {
     formState: { errors },
   } = useForm();
 
+
   // Handle form submission
   const onSubmit = (data) => {
-    console.log('Form Data:', data);
+
+    emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ').then(
+      (response) => {
+        console.log('SUCCESS!', response.status, response.text);
+      },
+      (error) => {
+        console.log('FAILED...', error);
+      },
+    );
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '400px', margin: 'auto' }}>
+    <form id="cookies-order" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '400px', margin: 'auto' }}>
       <h1>Order Now</h1>
       <div>
         <label htmlFor="name">Name:</label>
