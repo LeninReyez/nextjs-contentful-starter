@@ -145,7 +145,7 @@ const FormTest = () => {
           </span>
         </label>
 
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px' }}>
           <input style={inputStyle} type="checkbox" id="vehicle1" name="cashews" value="no" />
           <label htmlFor="vehicle1" style={{ marginLeft: '5px', marginRight: '10px' }}>
             No Cashews
