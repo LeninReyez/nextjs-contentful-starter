@@ -99,50 +99,8 @@ const FormTest = () => {
 
   return (
     <form id="cookies-order" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '800px', margin: 'auto' }}>
-      <h1>Order Now</h1>
-      <div className='bottomMargin'>
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" {...register('name', { required: 'Name is required' })} />
-        {errors.name && <span style={{ color: 'red' }}>{errors.name.message}</span>}
-      </div>
 
-      <div className='bottomMargin'>
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="email"
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value: /^\S+@\S+$/i,
-              message: 'Email is not valid',
-            },
-          })}
-        />
-        {errors.email && <span style={{ color: 'red' }}>{errors.email.message}</span>}
-      </div>
-
-      <div className='bottomMargin'>
-        <label htmlFor="email">Select your cookie size:</label></div>
-        <label>
-          <input type="radio" value="Small" {...register('cookie-size', { required: 'You must select an option' })} />
-          Small
-        </label>
-      
-
-      <div>
-        <label>
-          <input type="radio" value="Medium" {...register('cookie-size', { required: 'You must select an option' })} />
-          Medium
-        </label>
-      </div>
-
-      <div>
-        <label>
-          <input type="radio" value="Large" {...register('cookie-size', { required: 'You must select an option' })} />
-          Large
-        </label>
-      </div>
+ 
       <div>
       <label
   style={{
@@ -244,6 +202,75 @@ const FormTest = () => {
           {...register('selectedDate')} 
           style={{height: '24px'}}
         />
+      </div>
+
+      <div>
+      <label
+  style={{
+    textAlign: 'center',
+    fontSize: '18px', // Increase font size
+    fontWeight: 'bold', // Make the text bold
+    color: '#2B7EC3', // Use a standout color
+    backgroundColor: '#E0F8E0', // Light background color for contrast
+    padding: '10px', // Add some padding
+    borderRadius: '5px', // Rounded corners
+    display: 'block', // Make it a block element for better spacing
+    margin: '20px 0', // Add top and bottom margin
+  }}
+  htmlFor="email"
+>
+  Contact Information
+</label>
+      </div>
+
+      <div className='bottomMargin'>
+        <label htmlFor="name">Name:</label>
+        <input type="text" id="name" {...register('name', { required: 'Name is required' })} />
+        {errors.name && <span style={{ color: 'red' }}>{errors.name.message}</span>}
+      </div>
+
+      <div className='bottomMargin'>
+        <label htmlFor="email">Email:</label>
+        <input
+          id="email"
+          type="email"
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value: /^\S+@\S+$/i,
+              message: 'Email is not valid',
+            },
+          })}
+        />
+        {errors.email && <span style={{ color: 'red' }}>{errors.email.message}</span>}
+      </div>
+
+      <div className='bottomMargin'>
+      <label for="phone">Telephone:</label>
+      <input type="tel" id="phone" {...register('phone', { required: 'Phone number is required' })} name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required></input>
+      {errors.phone && <span style={{ color: 'red' }}>{errors.phone.message}</span>}
+      </div>
+
+      <div className='bottomMargin'>
+        <label htmlFor="email">Select your cookie size:</label></div>
+        <label>
+          <input type="radio" value="Small" {...register('cookie-size', { required: 'You must select an option' })} />
+          Small
+        </label>
+      
+
+      <div>
+        <label>
+          <input type="radio" value="Medium" {...register('cookie-size', { required: 'You must select an option' })} />
+          Medium
+        </label>
+      </div>
+
+      <div>
+        <label>
+          <input type="radio" value="Large" {...register('cookie-size', { required: 'You must select an option' })} />
+          Large
+        </label>
       </div>
 
       <button type="submit">Submit</button>
