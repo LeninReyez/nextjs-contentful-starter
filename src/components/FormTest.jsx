@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import '../../styles/styles.css';
@@ -12,27 +12,30 @@ const FormTest = () => {
     formState: { errors },
   } = useForm();
 
-
   // Handle form submission
   const onSubmit = (data) => {
-
-    emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ').then(
-      (response) => {
-        console.log('SUCCESS!', response.status, response.text);
-      },
-      (error) => {
-        console.log('FAILED...', error);
-      },
-    );
+    // emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ').then(
+    //   (response) => {
+    //     console.log('SUCCESS!', response.status, response.text);
+    //   },
+    //   (error) => {
+    //     console.log('FAILED...', error);
+    //   },
+    // );
   };
 
+  const myStyle = {
+    border: '1px solid black',
+    padding: '10px',
+    };
+
   return (
-    <form id="cookies-order" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '400px', margin: 'auto' }}>
+    <form id="cookies-order" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '800px', margin: 'auto' }}>
       <h1>Order Now</h1>
       <div>
         <label htmlFor="name">Name:</label>
         <input
-        type="name"
+          type="text"
           id="name"
           {...register('name', { required: 'Name is required' })}
         />
@@ -54,16 +57,6 @@ const FormTest = () => {
         />
         {errors.email && <span style={{ color: 'red' }}>{errors.email.message}</span>}
       </div>
-
-      {/* <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          id="password"
-          type="password"
-          {...register('password', { required: 'Password is required' })}
-        />
-        {errors.password && <span style={{ color: 'red' }}>{errors.password.message}</span>}
-      </div> */}
 
       <div>
         <label htmlFor="email">Select your cookie size:</label>
@@ -98,10 +91,10 @@ const FormTest = () => {
           Large
         </label>
       </div>
+      <div>        
+        <label style={{textAlign: 'center'   }} htmlFor="email">Specialty Cookie Cakes</label></div>
 
-
-      <div>
-      <label htmlFor="email">Select your prefered flavors:</label>
+      <div style={myStyle}>
         <label>
           <input
             type="checkbox"
@@ -110,42 +103,81 @@ const FormTest = () => {
               required: 'You must select at least one option',
             })}
           />
-          vanilla
+          #1 <b>Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and chocolate frostings.
         </label>
       </div>
 
-      <div>
+      <div style={myStyle}>
         <label>
           <input
             type="checkbox"
             value="chocolate"
             {...register('flavors')}
           />
-          chocolate
+          #2 Dark Chocolate Cashew & Sea Salt; dairy-free, vanilla frosted (dairy free)
         </label>
+
+        <p style={{ color: 'black', margin: '10px' }}>
+       
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+        <label htmlFor="vehicle1" style={{ marginLeft: '5px', marginRight: '10px' }}>No Cashews</label>
+
+        <label style={{border: 'dashed black 1px', padding: '5px'}} for="cars">Layer:
+          <select name="cars" id="cars">
+          <option value="single">Single Layer</option>
+          <option value="double">Double Layer</option>
+        </select>
+        </label>
+
+        </div>
+          </p>
       </div>
 
-      <div>
+      <div style={myStyle}>
         <label>
           <input
             type="checkbox"
             value="strawberry"
             {...register('flavors')}
           />
-          strawberry
+          #3 White Chip Funfetti; rainbow sprinkles and vanilla frosted
         </label>
       </div>
 
-      <div>
+      <div style={myStyle}>
         <label>
           <input
             type="checkbox"
             value="mint"
             {...register('flavors')}
           />
-          mint
+          #4 Double Chocolate; chocolate cookie and chips, vanilla frosted w/ chocolate sprinkles
         </label>
       </div>
+
+      <div style={myStyle}>
+        <label>
+          <input
+            type="checkbox"
+            value="triple-chocolate"
+            {...register('flavors')}
+          />
+          #5 Triple Chocolate; chocolate cookie, chips and chocolate frosting
+        </label>
+      </div>
+
+      {/* <div style={myStyle}>
+        <label>
+          <input
+            type="checkbox"
+            value="oreo"
+            {...register('flavors')}
+          />
+          <text><span style={{ color: 'green' }}>#6 Chocolate Oreo Cookie</span>; white chips, vanilla frosted, Oreo topping</text>
+        </label>
+      </div> */}
+
 
       <button type="submit">Submit</button>
     </form>
@@ -153,29 +185,3 @@ const FormTest = () => {
 };
 
 export default FormTest;
-// import React from 'react';
-// import { useForm } from 'react-hook-form';
-// import '../../styles/styles.css';
-
-
-
-// const FormTest = () => {
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm();
-
-//   return (
-//     <form onSubmit={handleSubmit((data) => console.log(data))}>
-//       <input {...register('firstName')} />
-//       <input {...register('lastName', { required: true })} />
-//       {errors.lastName && <p>Last name is required.</p>}
-//       <input {...register('age', { pattern: /\d+/ })} />
-//       {errors.age && <p>Please enter number for age.</p>}
-//       <input type="submit" />
-//     </form>
-//   );
-// };
-
-// export default FormTest;
