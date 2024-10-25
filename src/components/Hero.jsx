@@ -26,7 +26,7 @@ export const Hero = (props) => {
           {/* {props.button && <Button {...props.button} />} */}
         </div>
         <div className="w-full aspect-[4/3] flex-1 relative overflow-hidden rounded-md">
-        <img src="/cookies.jpg" alt="Description of the image"/>
+        <img src="/oakandpinelogo.png" alt="oak & pine bakehouse logo"/>
         
         </div>
       </div>
