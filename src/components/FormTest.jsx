@@ -252,24 +252,24 @@ const FormTest = () => {
       </div>
 
       <div className='bottomMargin'>
-        <label htmlFor="email">Select your cookie size:</label></div>
+        <label htmlFor="email">Select your contact preference(s):</label></div>
         <label>
           <input type="radio" value="Small" {...register('cookie-size', { required: 'You must select an option' })} />
-          Small
+          Email
         </label>
       
 
       <div>
         <label>
           <input type="radio" value="Medium" {...register('cookie-size', { required: 'You must select an option' })} />
-          Medium
+          Phone
         </label>
       </div>
 
       <div>
         <label>
           <input type="radio" value="Large" {...register('cookie-size', { required: 'You must select an option' })} />
-          Large
+          Text
         </label>
       </div>
 
