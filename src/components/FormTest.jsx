@@ -26,14 +26,14 @@ const FormTest = () => {
 
   // Handle form submission
   const onSubmit = (data) => {
-    // emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ').then(
-    //   (response) => {
-    //     console.log('SUCCESS!', response.status, response.text);
-    //   },
-    //   (error) => {
-    //     console.log('FAILED...', error);
-    //   },
-    // );
+    emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ').then(
+      (response) => {
+        console.log('SUCCESS!', response.status, response.text);
+      },
+      (error) => {
+        console.log('FAILED...', error);
+      },
+    );
   };
 
   const myStyle = {
@@ -186,14 +186,14 @@ const FormTest = () => {
         </label>
 
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <input style={inputStyle} type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+          <input style={inputStyle} type="checkbox" id="vehicle1" name="cashews" value="no" />
           <label htmlFor="vehicle1" style={{ marginLeft: '5px', marginRight: '10px' }}>
             No Cashews
           </label>
 
-          <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="cars">
+          <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="layers">
             Layer:
-            <select name="cars" id="cars">
+            <select name="layer" id="layers">
               <option value="single">Single Layer</option>
               <option value="double">Double Layer</option>
             </select>
