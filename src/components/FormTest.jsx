@@ -145,7 +145,7 @@ const FormTest = () => {
           </span>
         </label>
 
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px' }}>
           <input style={inputStyle} type="checkbox" id="vehicle1" name="cashews" value="no" />
           <label htmlFor="vehicle1" style={{ marginLeft: '5px', marginRight: '10px' }}>
             No Cashews
@@ -246,7 +246,7 @@ const FormTest = () => {
       </div>
 
       <div className='bottomMargin'>
-      <label for="phone">Telephone:</label>
+      <label htmlFor="phone">Telephone:</label>
       <input type="tel" id="phone" {...register('phone', { required: 'Phone number is required' })} name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required></input>
       {errors.phone && <span style={{ color: 'red' }}>{errors.phone.message}</span>}
       </div>
