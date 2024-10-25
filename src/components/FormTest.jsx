@@ -182,7 +182,9 @@ const FormTest = () => {
       <div style={{ ...cardStyle, ...wrapMe }}>
         <label style={labelStyle}>
           <input style={inputStyle} type="checkbox" value="chocolate" {...register('flavors')} />
+          <span style={flavorNameStyle}>
           #2 <b style={boldFlavorStyle}> Dark Chocolate Cashew & Sea Salt</b>; dairy-free, vanilla frosted (dairy free)
+          </span>
         </label>
 
         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -204,21 +206,27 @@ const FormTest = () => {
       <div style={cardStyle}>
         <label style={labelStyle}>
           <input style={inputStyle} type="checkbox" value="strawberry" {...register('flavors')} />
+          <span style={flavorNameStyle}>
           #3 <b style={boldFlavorStyle}> White Chip Funfetti</b>; rainbow sprinkles and vanilla frosted
+          </span>
         </label>
       </div>
 
       <div style={cardStyle}>
         <label style={labelStyle}>
           <input type="checkbox" value="mint" {...register('flavors')} />
+          <span style={flavorNameStyle}>
           #4 <b style={boldFlavorStyle}> Double Chocolate</b>; chocolate cookie and chips, vanilla frosted w/ chocolate sprinkles
+          </span>
         </label>
       </div>
 
       <div style={cardStyle}>
         <label style={labelStyle}>
           <input style={inputStyle} type="checkbox" value="triple-chocolate" {...register('flavors')} />
+          <span style={flavorNameStyle}>
           #5 <b style={boldFlavorStyle}> Triple Chocolate</b>; chocolate cookie, chips and chocolate frosting
+          </span>
         </label>
       </div>
 
