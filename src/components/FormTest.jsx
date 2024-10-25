@@ -28,7 +28,7 @@ const FormTest = () => {
   const onSubmit = (data) => {
     emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ').then(
       (response) => {
-        console.log('SUCCESS!', response.status, response.text);
+        console.log('SUCCESS!', response.status, response.text, JSON.stringify(data));
       },
       (error) => {
         console.log('FAILED...', error);
@@ -89,7 +89,7 @@ const FormTest = () => {
   
   const dataStyle = {
     marginRight: '10px', // Space between the label and the date input
-    height: '40px', // Match the height of the input if needed
+    // height: '40px', // Match the height of the input if needed
     lineHeight: '11px', // Ensure line height matches the height
   };
 
@@ -100,13 +100,13 @@ const FormTest = () => {
   return (
     <form id="cookies-order" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '800px', margin: 'auto' }}>
       <h1>Order Now</h1>
-      <div>
+      <div className='bottomMargin'>
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" {...register('name', { required: 'Name is required' })} />
         {errors.name && <span style={{ color: 'red' }}>{errors.name.message}</span>}
       </div>
 
-      <div>
+      <div className='bottomMargin'>
         <label htmlFor="email">Email:</label>
         <input
           id="email"
@@ -122,13 +122,13 @@ const FormTest = () => {
         {errors.email && <span style={{ color: 'red' }}>{errors.email.message}</span>}
       </div>
 
-      <div>
-        <label htmlFor="email">Select your cookie size:</label>
+      <div className='bottomMargin'>
+        <label htmlFor="email">Select your cookie size:</label></div>
         <label>
           <input type="radio" value="Small" {...register('cookie-size', { required: 'You must select an option' })} />
           Small
         </label>
-      </div>
+      
 
       <div>
         <label>
@@ -233,6 +233,7 @@ const FormTest = () => {
           placeholderText="Select a date"
           className="date-picker" // Optional class for custom styling
           required
+          {...register('selectedDate')} 
           style={{height: '24px'}}
         />
       </div>
