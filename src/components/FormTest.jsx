@@ -1,8 +1,11 @@
-"use client"
-import React from 'react';
+'use client';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import '../../styles/styles.css';
 import emailjs from 'emailjs-com';
+
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const FormTest = () => {
   // Initialize useForm
@@ -11,6 +14,15 @@ const FormTest = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const [startDate, setStartDate] = useState(null);
+
+    // Blocked dates (example: weekends and specific dates)
+    const isBlockedDate = (date) => {
+      const day = date.getDay();
+      return day === 0 || day === 6; // Block Sundays (0) and Saturdays (6)
+      // You can add more conditions for specific dates
+    };
 
   // Handle form submission
   const onSubmit = (data) => {
@@ -27,18 +39,70 @@ const FormTest = () => {
   const myStyle = {
     border: '1px solid black',
     padding: '10px',
-    };
+  };
+
+  // Define styles as objects
+  const cardStyle = {
+    backgroundColor: '#fff',
+    border: '1px solid #ddd',
+    borderRadius: '12px',
+    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.15)',
+    padding: '20px',
+    display: 'flex',
+    // flexWrap: 'wrap',
+    alignItems: 'center',
+    transition: 'transform 0.2s, box-shadow 0.2s',
+    margin: '10px 0',
+  };
+
+  const wrapMe = {
+    flexWrap: 'wrap'
+  }
+
+  const labelStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+  };
+
+  const inputStyle = {
+    marginRight: '15px',
+  };
+
+  const flavorNameStyle = {
+    fontSize: '16px',
+    lineHeight: '1.5',
+  };
+
+  const boldFlavorStyle = {
+    color: '#4B8FD5', // Change this to your preferred color
+    marginLeft: '10px'
+  };
+
+
+  const alignedStyle = {
+    display: 'flex',
+    alignItems: 'center', // Align items vertically in the center
+    lineHeight: '1.5', // Set line height to match your font size
+    marginBottom: '10px', // Optional: Space between rows
+  };
+  
+  const dataStyle = {
+    marginRight: '10px', // Space between the label and the date input
+    height: '40px', // Match the height of the input if needed
+    lineHeight: '11px', // Ensure line height matches the height
+  };
+
+  const datePickerStyle = {
+    height: '40px', // Set the same height as the label
+  };
 
   return (
     <form id="cookies-order" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '800px', margin: 'auto' }}>
       <h1>Order Now</h1>
       <div>
         <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          {...register('name', { required: 'Name is required' })}
-        />
+        <input type="text" id="name" {...register('name', { required: 'Name is required' })} />
         {errors.name && <span style={{ color: 'red' }}>{errors.name.message}</span>}
       </div>
 
@@ -61,123 +125,117 @@ const FormTest = () => {
       <div>
         <label htmlFor="email">Select your cookie size:</label>
         <label>
-          <input
-            type="radio"
-            value="Small"
-            {...register('cookie-size', { required: 'You must select an option' })}
-          />
+          <input type="radio" value="Small" {...register('cookie-size', { required: 'You must select an option' })} />
           Small
         </label>
       </div>
 
       <div>
         <label>
-          <input
-            type="radio"
-            value="Medium"
-            {...register('cookie-size', { required: 'You must select an option' })}
-          />
+          <input type="radio" value="Medium" {...register('cookie-size', { required: 'You must select an option' })} />
           Medium
         </label>
       </div>
 
       <div>
         <label>
-          <input
-            type="radio"
-            value="Large"
-            {...register('cookie-size', { required: 'You must select an option' })}
-          />
+          <input type="radio" value="Large" {...register('cookie-size', { required: 'You must select an option' })} />
           Large
         </label>
       </div>
-      <div>        
-        <label style={{textAlign: 'center'   }} htmlFor="email">Specialty Cookie Cakes</label></div>
+      <div>
+      <label
+  style={{
+    textAlign: 'center',
+    fontSize: '18px', // Increase font size
+    fontWeight: 'bold', // Make the text bold
+    color: '#2B7EC3', // Use a standout color
+    backgroundColor: '#E0F7FA', // Light background color for contrast
+    padding: '10px', // Add some padding
+    borderRadius: '5px', // Rounded corners
+    display: 'block', // Make it a block element for better spacing
+    margin: '20px 0', // Add top and bottom margin
+  }}
+  htmlFor="email"
+>
+  Specialty Cookie Cakes
+</label>
+      </div>
 
-      <div style={myStyle}>
-        <label>
+      <div style={cardStyle}>
+        <label style={labelStyle}>
           <input
             type="checkbox"
             value="vanilla"
             {...register('flavors', {
               required: 'You must select at least one option',
             })}
+            style={inputStyle}
           />
-          #1 <b>Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and chocolate frostings.
+          <span style={flavorNameStyle}>
+            #1 <b style={boldFlavorStyle}> Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and
+            chocolate frostings.
+          </span>
         </label>
       </div>
 
-      <div style={myStyle}>
-        <label>
-          <input
-            type="checkbox"
-            value="chocolate"
-            {...register('flavors')}
-          />
-          #2 Dark Chocolate Cashew & Sea Salt; dairy-free, vanilla frosted (dairy free)
+      <div style={{ ...cardStyle, ...wrapMe }}>
+        <label style={labelStyle}>
+          <input style={inputStyle} type="checkbox" value="chocolate" {...register('flavors')} />
+          #2 <b style={boldFlavorStyle}> Dark Chocolate Cashew & Sea Salt</b>; dairy-free, vanilla frosted (dairy free)
         </label>
 
-        <p style={{ color: 'black', margin: '10px' }}>
-       
         <div style={{ display: 'flex', alignItems: 'center' }}>
-        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-        <label htmlFor="vehicle1" style={{ marginLeft: '5px', marginRight: '10px' }}>No Cashews</label>
+          <input style={inputStyle} type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+          <label htmlFor="vehicle1" style={{ marginLeft: '5px', marginRight: '10px' }}>
+            No Cashews
+          </label>
 
-        <label style={{border: 'dashed black 1px', padding: '5px'}} for="cars">Layer:
-          <select name="cars" id="cars">
-          <option value="single">Single Layer</option>
-          <option value="double">Double Layer</option>
-        </select>
-        </label>
-
+          <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="cars">
+            Layer:
+            <select name="cars" id="cars">
+              <option value="single">Single Layer</option>
+              <option value="double">Double Layer</option>
+            </select>
+          </label>
         </div>
-          </p>
       </div>
 
-      <div style={myStyle}>
-        <label>
-          <input
-            type="checkbox"
-            value="strawberry"
-            {...register('flavors')}
-          />
-          #3 White Chip Funfetti; rainbow sprinkles and vanilla frosted
+      <div style={cardStyle}>
+        <label style={labelStyle}>
+          <input style={inputStyle} type="checkbox" value="strawberry" {...register('flavors')} />
+          #3 <b style={boldFlavorStyle}> White Chip Funfetti</b>; rainbow sprinkles and vanilla frosted
         </label>
       </div>
 
-      <div style={myStyle}>
-        <label>
-          <input
-            type="checkbox"
-            value="mint"
-            {...register('flavors')}
-          />
-          #4 Double Chocolate; chocolate cookie and chips, vanilla frosted w/ chocolate sprinkles
+      <div style={cardStyle}>
+        <label style={labelStyle}>
+          <input type="checkbox" value="mint" {...register('flavors')} />
+          #4 <b style={boldFlavorStyle}> Double Chocolate</b>; chocolate cookie and chips, vanilla frosted w/ chocolate sprinkles
         </label>
       </div>
 
-      <div style={myStyle}>
-        <label>
-          <input
-            type="checkbox"
-            value="triple-chocolate"
-            {...register('flavors')}
-          />
-          #5 Triple Chocolate; chocolate cookie, chips and chocolate frosting
+      <div style={cardStyle}>
+        <label style={labelStyle}>
+          <input style={inputStyle} type="checkbox" value="triple-chocolate" {...register('flavors')} />
+          #5 <b style={boldFlavorStyle}> Triple Chocolate</b>; chocolate cookie, chips and chocolate frosting
         </label>
       </div>
 
-      {/* <div style={myStyle}>
-        <label>
-          <input
-            type="checkbox"
-            value="oreo"
-            {...register('flavors')}
-          />
-          <text><span style={{ color: 'green' }}>#6 Chocolate Oreo Cookie</span>; white chips, vanilla frosted, Oreo topping</text>
-        </label>
-      </div> */}
-
+      {/* Date Picker */}
+      <div style={{...cardStyle, ...alignedStyle}}>
+        <label style={dataStyle} htmlFor="date">Select Date:</label>
+        <DatePicker
+          id="date"
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          filterDate={isBlockedDate} // Block certain dates
+          placeholderText="Select a date"
+          className="date-picker" // Optional class for custom styling
+          required
+          style={{height: '24px'}}
+        />
+      </div>
 
       <button type="submit">Submit</button>
     </form>
