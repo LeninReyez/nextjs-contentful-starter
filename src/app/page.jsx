@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation';
 import { Hero } from '../components/Hero.jsx';
 import { getPageFromSlug } from '../utils/content.js';
-import  FormTest  from '../components/FormTest.jsx';
+import Navbar from '../components/Navbar.jsx'
 
 const componentMap = {
   hero: Hero,
-  form: FormTest,
+  Navbar
+
 };
 
 export default async function ComposablePage() {
@@ -18,13 +19,13 @@ export default async function ComposablePage() {
 
     return (
       <div data-sb-object-id={page.id}>
+               <Navbar></Navbar>
         {(page.sections || []).map((section, idx) => {
           const RenderedComponent = componentMap[section.type];
           return RenderedComponent ? (
             <RenderedComponent key={idx} {...section} />
           ) : null; // Handles cases where section.type isn't found
         })}
-        <FormTest /> {/* Render FormTest directly if needed */}
       </div>
     );
   } catch (error) {

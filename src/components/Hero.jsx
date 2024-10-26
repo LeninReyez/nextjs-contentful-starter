@@ -17,11 +17,11 @@ export const Hero = (props) => {
     <div className="px-6 py-16 sm:px-12 sm:py-24" data-sb-object-id={props.id}>
       <div className={`max-w-6xl mx-auto flex flex-col-reverse md:flex-row gap-12 md:items-center ${themeClassMap[props.theme] ?? themeClassMap['imgRight']}`}>
        <div className="w-full max-w-xl mx-auto flex-1">
-          <h3 className="text-center mb-6 text-3xl font-bold sm:text-4x1" data-sb-field-path="heading">
+          <h3 className="text-center mb-6 text-3xl font-bold sm:text-4x1 sm:text-center" data-sb-field-path="heading">
             {heading}
           </h3>
           {props.body && (
-            <Markdown options={{ forceBlock: true }} className="mb-6 text-lg" data-sb-field-path="body">
+            <Markdown options={{ forceBlock: true }} className="mb-6 text-lg text-center" data-sb-field-path="body">
               {content}
             </Markdown>
           )}
