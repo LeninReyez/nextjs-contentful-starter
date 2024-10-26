@@ -1,8 +1,15 @@
-import  FormTest  from '../components/FormTest.jsx';
+
+import FormTest from '../components/FormTest.jsx';
+import Navbar from '../components/Navbar.jsx';
 
 const Order = () => {
-    <h1>Order Form</h1>
-   return <FormTest />
-  };
-  
-  export default Order;
+  return (
+    <>
+      <Navbar />
+      <h1>Order Form</h1>
+      <FormTest />
+    </>
+  );
+};
+
+export default Order;
