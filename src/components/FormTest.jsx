@@ -188,23 +188,27 @@ const FormTest = () => {
           </span>
         </label>
       </div>
-
-      {/* Date Picker */}
-      <div style={{ ...cardStyle, ...alignedStyle }}>
-        <label style={dataStyle} htmlFor="date">
-          Select Date:
-        </label>
-        <DatePicker
-          id="date"
-          selected={startDate}
-          filterDate={isBlockedDate} // Block certain dates
-          onChange={(date) => {
-            setStartDate(date);
-            setValue('selectedDate', date); // Set the value in react-hook-form
-          }}
-
-        />
-      </div>
+{/* Date Picker */}
+<div style={{ ...cardStyle, ...alignedStyle }}>
+  <label style={dataStyle} htmlFor="date">
+    Select Date:
+  </label>
+  <DatePicker
+    id="date"
+    selected={startDate}
+    filterDate={isBlockedDate} // Block certain dates
+    onChange={(date) => {
+      setStartDate(date);
+      setValue('selectedDate', date); // Set the value in react-hook-form
+    }}
+    placeholderText="Select a date"
+    className="date-picker" // Optional class for custom styling
+    required
+  />
+  {/* Hidden input to register the date with react-hook-form */}
+  <input type="hidden" {...register('selectedDate', { required: 'Date is required' })} />
+  {errors.selectedDate && <span style={{ color: 'red' }}>{errors.selectedDate.message}</span>}
+</div>
 
       <div>
         <label
