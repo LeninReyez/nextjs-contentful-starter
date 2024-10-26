@@ -91,6 +91,7 @@ const FormTest = () => {
     marginRight: '10px', // Space between the label and the date input
     // height: '40px', // Match the height of the input if needed
     lineHeight: '11px', // Ensure line height matches the height
+    width: '50%'
   };
 
   const datePickerStyle = {
