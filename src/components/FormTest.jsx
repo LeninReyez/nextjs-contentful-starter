@@ -12,17 +12,18 @@ const FormTest = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
   const [startDate, setStartDate] = useState(null);
 
-    // Blocked dates (example: weekends and specific dates)
-    const isBlockedDate = (date) => {
-      const day = date.getDay();
-      return day === 0 || day === 6; // Block Sundays (0) and Saturdays (6)
-      // You can add more conditions for specific dates
-    };
+  // Blocked dates (example: weekends and specific dates)
+  const isBlockedDate = (date) => {
+    const day = date.getDay();
+    return day === 0 || day === 6; // Block Sundays (0) and Saturdays (6)
+    // You can add more conditions for specific dates
+  };
 
   // Handle form submission
   const onSubmit = (data) => {
@@ -56,8 +57,8 @@ const FormTest = () => {
   };
 
   const wrapMe = {
-    flexWrap: 'wrap'
-  }
+    flexWrap: 'wrap',
+  };
 
   const labelStyle = {
     display: 'flex',
@@ -76,9 +77,8 @@ const FormTest = () => {
 
   const boldFlavorStyle = {
     color: '#4B8FD5', // Change this to your preferred color
-    marginLeft: '10px'
+    marginLeft: '10px',
   };
-
 
   const alignedStyle = {
     display: 'flex',
@@ -86,7 +86,7 @@ const FormTest = () => {
     lineHeight: '1.5', // Set line height to match your font size
     marginBottom: '10px', // Optional: Space between rows
   };
-  
+
   const dataStyle = {
     marginRight: '10px', // Space between the label and the date input
     // height: '40px', // Match the height of the input if needed
@@ -100,25 +100,23 @@ const FormTest = () => {
 
   return (
     <form id="cookies-order" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '800px', margin: 'auto' }}>
-
- 
       <div>
-      <label
-  style={{
-    textAlign: 'center',
-    fontSize: '18px', // Increase font size
-    fontWeight: 'bold', // Make the text bold
-    color: '#2B7EC3', // Use a standout color
-    backgroundColor: '#E0F7FA', // Light background color for contrast
-    padding: '10px', // Add some padding
-    borderRadius: '5px', // Rounded corners
-    display: 'block', // Make it a block element for better spacing
-    margin: '20px 0', // Add top and bottom margin
-  }}
-  htmlFor="email"
->
-  Specialty Cookie Cakes
-</label>
+        <label
+          style={{
+            textAlign: 'center',
+            fontSize: '18px', // Increase font size
+            fontWeight: 'bold', // Make the text bold
+            color: '#2B7EC3', // Use a standout color
+            backgroundColor: '#E0F7FA', // Light background color for contrast
+            padding: '10px', // Add some padding
+            borderRadius: '5px', // Rounded corners
+            display: 'block', // Make it a block element for better spacing
+            margin: '20px 0', // Add top and bottom margin
+          }}
+          htmlFor="email"
+        >
+          Specialty Cookie Cakes
+        </label>
       </div>
 
       <div style={cardStyle}>
@@ -142,7 +140,8 @@ const FormTest = () => {
         <label style={labelStyle}>
           <input style={inputStyle} type="checkbox" value="chocolate" {...register('flavors')} />
           <span style={flavorNameStyle}>
-          #2 <b style={boldFlavorStyle}> Dark Chocolate Cashew & Sea Salt</b>; dairy-free, vanilla frosted (dairy free)
+            #2 <b style={boldFlavorStyle}> Dark Chocolate Cashew & Sea Salt</b>; dairy-free, vanilla frosted (dairy
+            free)
           </span>
         </label>
 
@@ -166,7 +165,7 @@ const FormTest = () => {
         <label style={labelStyle}>
           <input style={inputStyle} type="checkbox" value="strawberry" {...register('flavors')} />
           <span style={flavorNameStyle}>
-          #3 <b style={boldFlavorStyle}> White Chip Funfetti</b>; rainbow sprinkles and vanilla frosted
+            #3 <b style={boldFlavorStyle}> White Chip Funfetti</b>; rainbow sprinkles and vanilla frosted
           </span>
         </label>
       </div>
@@ -175,7 +174,8 @@ const FormTest = () => {
         <label style={labelStyle}>
           <input type="checkbox" value="mint" {...register('flavors')} />
           <span style={flavorNameStyle}>
-          #4 <b style={boldFlavorStyle}> Double Chocolate</b>; chocolate cookie and chips, vanilla frosted w/ chocolate sprinkles
+            #4 <b style={boldFlavorStyle}> Double Chocolate</b>; chocolate cookie and chips, vanilla frosted w/
+            chocolate sprinkles
           </span>
         </label>
       </div>
@@ -184,53 +184,58 @@ const FormTest = () => {
         <label style={labelStyle}>
           <input style={inputStyle} type="checkbox" value="triple-chocolate" {...register('flavors')} />
           <span style={flavorNameStyle}>
-          #5 <b style={boldFlavorStyle}> Triple Chocolate</b>; chocolate cookie, chips and chocolate frosting
+            #5 <b style={boldFlavorStyle}> Triple Chocolate</b>; chocolate cookie, chips and chocolate frosting
           </span>
         </label>
       </div>
-
-      {/* Date Picker */}
-      <div style={{...cardStyle, ...alignedStyle}}>
-        <label style={dataStyle} htmlFor="date">Select Date:</label>
-        <DatePicker
-          id="date"
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          filterDate={isBlockedDate} // Block certain dates
-          placeholderText="Select a date"
-          className="date-picker" // Optional class for custom styling
-          required
-          {...register('selectedDate')} 
-          style={{height: '24px'}}
-        />
-      </div>
+{/* Date Picker */}
+<div style={{ ...cardStyle, ...alignedStyle }}>
+  <label style={dataStyle} htmlFor="date">
+    Select Date:
+  </label>
+  <DatePicker
+    id="date"
+    selected={startDate}
+    filterDate={isBlockedDate} // Block certain dates
+    onChange={(date) => {
+      setStartDate(date);
+      setValue('selectedDate', date); // Set the value in react-hook-form
+    }}
+    placeholderText="Select a date"
+    className="date-picker" // Optional class for custom styling
+    required
+  />
+  {/* Hidden input to register the date with react-hook-form */}
+  <input type="hidden" {...register('selectedDate', { required: 'Date is required' })} />
+  {errors.selectedDate && <span style={{ color: 'red' }}>{errors.selectedDate.message}</span>}
+</div>
 
       <div>
-      <label
-  style={{
-    textAlign: 'center',
-    fontSize: '18px', // Increase font size
-    fontWeight: 'bold', // Make the text bold
-    color: '#2B7EC3', // Use a standout color
-    backgroundColor: '#E0F8E0', // Light background color for contrast
-    padding: '10px', // Add some padding
-    borderRadius: '5px', // Rounded corners
-    display: 'block', // Make it a block element for better spacing
-    margin: '20px 0', // Add top and bottom margin
-  }}
-  htmlFor="email"
->
-  Contact Information
-</label>
+        <label
+          style={{
+            textAlign: 'center',
+            fontSize: '18px', // Increase font size
+            fontWeight: 'bold', // Make the text bold
+            color: '#2B7EC3', // Use a standout color
+            backgroundColor: '#E0F8E0', // Light background color for contrast
+            padding: '10px', // Add some padding
+            borderRadius: '5px', // Rounded corners
+            display: 'block', // Make it a block element for better spacing
+            margin: '20px 0', // Add top and bottom margin
+          }}
+          htmlFor="email"
+        >
+          Contact Information
+        </label>
       </div>
 
-      <div className='bottomMargin'>
+      <div className="bottomMargin">
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" {...register('name', { required: 'Name is required' })} />
         {errors.name && <span style={{ color: 'red' }}>{errors.name.message}</span>}
       </div>
 
-      <div className='bottomMargin'>
+      <div className="bottomMargin">
         <label htmlFor="email">Email:</label>
         <input
           id="email"
@@ -246,30 +251,38 @@ const FormTest = () => {
         {errors.email && <span style={{ color: 'red' }}>{errors.email.message}</span>}
       </div>
 
-      <div className='bottomMargin'>
-      <label htmlFor="phone">Telephone:</label>
-      <input type="tel" id="phone" {...register('phone', { required: 'Phone number is required' })} name="phone" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required></input>
-      {errors.phone && <span style={{ color: 'red' }}>{errors.phone.message}</span>}
+      <div className="bottomMargin">
+        <label htmlFor="phone">Telephone:</label>
+        <input
+          type="tel"
+          id="phone"
+          {...register('phone', { required: 'Phone number is required' })}
+          name="phone"
+          placeholder="123-456-7890"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          required
+        ></input>
+        {errors.phone && <span style={{ color: 'red' }}>{errors.phone.message}</span>}
       </div>
 
-      <div className='bottomMargin'>
-        <label htmlFor="email">Select your contact preference(s):</label></div>
-        <label>
-          <input type="radio" value="Small" {...register('cookie-size', { required: 'You must select an option' })} />
-          Email
-        </label>
-      
+      <div className="bottomMargin">
+        <label htmlFor="email">Select your contact preference(s):</label>
+      </div>
+      <label>
+        <input type="radio" value="email" {...register('email', { required: 'You must select an option' })} />
+        Email
+      </label>
 
       <div>
         <label>
-          <input type="radio" value="Medium" {...register('cookie-size', { required: 'You must select an option' })} />
+          <input type="radio" value="phone" {...register('phone', { required: 'You must select an option' })} />
           Phone
         </label>
       </div>
 
       <div>
         <label>
-          <input type="radio" value="Large" {...register('cookie-size', { required: 'You must select an option' })} />
+          <input type="radio" value="text" {...register('text', { required: 'You must select an option' })} />
           Text
         </label>
       </div>
