@@ -197,12 +197,12 @@ const FormTest = () => {
         <DatePicker
           id="date"
           selected={startDate}
+          filterDate={isBlockedDate} // Block certain dates
           onChange={(date) => {
             setStartDate(date);
             setValue('selectedDate', date); // Set the value in react-hook-form
           }}
-          filterDate={(date) => date.getDay() !== 0 && date.getDay() !== 6} // Example to block weekends
-          placeholderText="Select a date"
+
         />
       </div>
 
