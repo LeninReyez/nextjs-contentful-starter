@@ -17,7 +17,7 @@ const Contact = () => {
         <p>If you have any questions or inquiries, feel free to reach out to us!</p>
         <br></br>
         <a href="mailto:oakandpainbakery@gmail.com" className="email-link">
-          Email: oakandpinebakery@gmail.com
+          Email: oakandpinebakehouse@gmail.com
         </a>
       </div>
     </>
