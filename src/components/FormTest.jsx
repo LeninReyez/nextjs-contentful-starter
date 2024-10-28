@@ -148,8 +148,8 @@ const FormTest = () => {
         <label style={labelStyle}>
           <input
             type="checkbox"
-            value="vanilla"
-            {...register('flavors', {
+            value="Deluxe Chocolate Chip"
+            {...register('orderType', {
               required: 'You must select at least one option',
             })}
             style={inputStyle}
@@ -164,9 +164,10 @@ const FormTest = () => {
         <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
          <label style={{  padding: '5px'}} htmlFor="layers">
             Layer:
-            <select style={{marginLeft: '5px'}} name="layer" id="layers">
-              <option value="single">Single Layer</option>
-              <option value="double">Double Layer</option>
+            <select style={{marginLeft: '5px'}} name="layer" id="option1" {...register('Deluxe Chocolate Chip Layer', { required: 'Please select a layer' })}>
+            <option value=""></option>
+              <option value="singlex">Single Layer</option>
+              <option value="doublex">Double Layer</option>
             </select>
           </label>
         </div>
@@ -174,7 +175,7 @@ const FormTest = () => {
 
       <div style={{ ...cardStyle, ...wrapMe }}>
         <label style={labelStyle}>
-          <input style={inputStyle} type="checkbox" value="chocolate" {...register('flavors')} />
+          <input style={inputStyle} type="checkbox" value="Dark Chocolate Cashew & Sea Salt" {...register('orderType')} />
           <span style={flavorNameStyle}>
             #2 <b style={boldFlavorStyle}> Dark Chocolate Cashew & Sea Salt</b>; dairy-free, vanilla frosted (dairy
             free)
@@ -184,7 +185,8 @@ const FormTest = () => {
         <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
         <label style={{  padding: '5px', marginRight: '20px' }} htmlFor="layers">
             Layer:
-            <select style={{marginLeft: '5px'}} name="layer" id="layers">
+            <select style={{marginLeft: '5px'}} name="layer" id="option2" {...register('Dark Chocolate Cashew & Sea Salt Layer', { required: 'Please select a layer' })}>
+            <option value=""></option>
               <option value="single">Single Layer</option>
               <option value="double">Double Layer</option>
             </select>
@@ -352,7 +354,9 @@ const FormTest = () => {
   Text
 </label>
 
-      <button type="submit">Submit</button>
+<button type="submit" style={{ marginTop: '20px', padding: '10px 20px', backgroundColor: '#2B7EC3', color: '#fff', border: 'none', borderRadius: '5px' }}>
+  Submit
+</button>
     </form>
   );
 };
