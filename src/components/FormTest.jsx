@@ -50,7 +50,7 @@ const FormTest = () => {
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.15)',
     padding: '20px',
     display: 'flex',
-    // flexWrap: 'wrap',
+    flexWrap: 'wrap',
     alignItems: 'center',
     transition: 'transform 0.2s, box-shadow 0.2s',
     margin: '10px 0',
@@ -91,7 +91,7 @@ const FormTest = () => {
     marginRight: '10px', // Space between the label and the date input
     // height: '40px', // Match the height of the input if needed
     lineHeight: '11px', // Ensure line height matches the height
-    width: '50%'
+    // width: '50%'
   };
 
   const datePickerStyle = {
@@ -133,7 +133,18 @@ const FormTest = () => {
             #1 <b style={boldFlavorStyle}> Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and
             chocolate frostings.
           </span>
+
         </label>
+
+        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
+         <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="layers">
+            Layer:
+            <select name="layer" id="layers">
+              <option value="single">Single Layer</option>
+              <option value="double">Double Layer</option>
+            </select>
+          </label>
+        </div>
       </div>
 
       <div style={{ ...cardStyle, ...wrapMe }}>
@@ -168,6 +179,17 @@ const FormTest = () => {
             #3 <b style={boldFlavorStyle}> White Chip Funfetti</b>; rainbow sprinkles and vanilla frosted
           </span>
         </label>
+        
+        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
+         <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="layers">
+            Layer:
+            <select name="layer" id="layers">
+              <option value="single">Single Layer</option>
+              <option value="double">Double Layer</option>
+            </select>
+          </label>
+        </div>
+        
       </div>
 
       <div style={cardStyle}>
@@ -178,6 +200,15 @@ const FormTest = () => {
             chocolate sprinkles
           </span>
         </label>
+        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
+         <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="layers">
+            Layer:
+            <select name="layer" id="layers">
+              <option value="single">Single Layer</option>
+              <option value="double">Double Layer</option>
+            </select>
+          </label>
+        </div>
       </div>
 
       <div style={cardStyle}>
@@ -187,6 +218,15 @@ const FormTest = () => {
             #5 <b style={boldFlavorStyle}> Triple Chocolate</b>; chocolate cookie, chips and chocolate frosting
           </span>
         </label>
+        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
+         <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="layers">
+            Layer:
+            <select name="layer" id="layers">
+              <option value="single">Single Layer</option>
+              <option value="double">Double Layer</option>
+            </select>
+          </label>
+        </div>
       </div>
 {/* Date Picker */}
 <div style={{ ...cardStyle, ...alignedStyle }}>
