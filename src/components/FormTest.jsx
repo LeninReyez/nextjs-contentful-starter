@@ -27,7 +27,7 @@ const FormTest = () => {
 
   // Handle form submission
   const onSubmit = (data) => {
-    console.log("ran onSubmit")
+    console.log('ran onSubmit');
     emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ').then(
       (response) => {
         console.log('SUCCESS!', response.status, response.text, JSON.stringify(data));
@@ -57,18 +57,29 @@ const FormTest = () => {
     margin: '10px 0',
   };
 
+  const cardStyleNoWrap = {
+    backgroundColor: '#fff',
+    border: '1px solid #ddd',
+    borderRadius: '12px',
+    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.15)',
+    alignItems: 'center',
+    transition: 'transform 0.2s, box-shadow 0.2s',
+    padding: '10px',
+    textAlign: 'center',
+  };
+
   const wrapMe = {
     flexWrap: 'wrap',
   };
 
   const labelStyle = {
-    display: 'flex',
-    alignItems: 'center',
+    // display: 'flex',
+    // alignItems: 'center',
     width: '100%',
   };
 
   const inputStyle = {
-    marginRight: '15px',
+    marginRight: '3px',
   };
 
   const flavorNameStyle = {
@@ -131,16 +142,22 @@ const FormTest = () => {
             style={inputStyle}
           />
           <span style={flavorNameStyle}>
-            #1 <b style={boldFlavorStyle}> Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and
-            chocolate frostings.
+            #1 <b style={boldFlavorStyle}> Deluxe Chocolate Chip</b>
           </span>
+          <span style={{ marginLeft: '30px' }}>
+  <ul className="custom-list" style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
+    <li className="list-item" style={{ margin: '5px 0' }}>- Guittard milk chocolate, semi-sweet and dark chocolate chips</li>
+    <li className="list-item" style={{ margin: '5px 0' }}>- Housemade vanilla frosting, flavored with organic Madagascar vanilla</li>
+    <li className="list-item" style={{ margin: '5px 0' }}>- Embellished with housemade chocolate frosting</li>
+  </ul>
+</span>
 
         </label>
 
-        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
-         <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="layers">
+        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px' }}>
+          <label style={{ padding: '5px' }} htmlFor="layers">
             Layer:
-            <select name="layer" id="layers">
+            <select style={{ marginLeft: '5px' }} name="layer" id="layers">
               <option value="single">Single Layer</option>
               <option value="double">Double Layer</option>
             </select>
@@ -157,23 +174,23 @@ const FormTest = () => {
           </span>
         </label>
 
-        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px' }}>
-          <input style={inputStyle} type="checkbox" id="vehicle1" name="cashews" value="no" />
-          <label htmlFor="vehicle1" style={{ marginLeft: '5px', marginRight: '10px' }}>
-            No Cashews
-          </label>
-
-          <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="layers">
+        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px' }}>
+          <label style={{ padding: '5px', marginRight: '20px' }} htmlFor="layers">
             Layer:
-            <select name="layer" id="layers">
+            <select style={{ marginLeft: '5px' }} name="layer" id="layers">
               <option value="single">Single Layer</option>
               <option value="double">Double Layer</option>
             </select>
           </label>
+
+          <input style={inputStyle} type="checkbox" id="vehicle1" name="cashews" value="no" />
+          <label htmlFor="vehicle1" style={{ marginLeft: '5px', marginRight: '10px' }}>
+            No Cashews
+          </label>
         </div>
       </div>
 
-      <div style={cardStyle}>
+      {/* <div style={cardStyle}>
         <label style={labelStyle}>
           <input style={inputStyle} type="checkbox" value="strawberry" {...register('flavors')} />
           <span style={flavorNameStyle}>
@@ -228,28 +245,36 @@ const FormTest = () => {
             </select>
           </label>
         </div>
+      </div> */}
+      {/* Date Picker */}
+      <div style={{ ...cardStyle, ...alignedStyle }}>
+        <label style={dataStyle} htmlFor="date">
+          Select Date:
+        </label>
+        <DatePicker
+          id="date"
+          selected={startDate}
+          filterDate={isBlockedDate} // Block certain dates
+          onChange={(date) => {
+            setStartDate(date);
+            setValue('selectedDate', date); // Set the value in react-hook-form
+          }}
+          placeholderText="Select a date"
+          className="date-picker" // Optional class for custom styling
+          required
+        />
+        {/* Hidden input to register the date with react-hook-form */}
+        <input type="hidden" {...register('selectedDate', { required: 'Date is required' })} />
+        {errors.selectedDate && <span style={{ color: 'red' }}>{errors.selectedDate.message}</span>}
       </div>
-{/* Date Picker */}
-<div style={{ ...cardStyle, ...alignedStyle }}>
-  <label style={dataStyle} htmlFor="date">
-    Select Date:
-  </label>
-  <DatePicker
-    id="date"
-    selected={startDate}
-    filterDate={isBlockedDate} // Block certain dates
-    onChange={(date) => {
-      setStartDate(date);
-      setValue('selectedDate', date); // Set the value in react-hook-form
-    }}
-    placeholderText="Select a date"
-    className="date-picker" // Optional class for custom styling
-    required
-  />
-  {/* Hidden input to register the date with react-hook-form */}
-  <input type="hidden" {...register('selectedDate', { required: 'Date is required' })} />
-  {errors.selectedDate && <span style={{ color: 'red' }}>{errors.selectedDate.message}</span>}
-</div>
+
+      <div style={{ ...cardStyleNoWrap }}>
+        <sup style={{ fontWeight: 'bold', textAlign: 'center' }}>
+          {' '}
+          **48 HOUR NOTICE IS REQUIRED BEFORE SCHEDULED PICKUP.
+        </sup>
+        <div>Pickup in West Normal</div>
+      </div>
 
       <div>
         <label
@@ -310,17 +335,21 @@ const FormTest = () => {
         <label htmlFor="email">Select your contact preference(s):</label>
       </div>
       <label>
-  <input type="radio" value="email" {...register('contactPreference', { required: 'You must select an option' })} />
-  Email
-</label>
-<label>
-  <input type="radio" value="phone" {...register('contactPreference')} />
-  Phone
-</label>
-<label>
-  <input type="radio" value="text" {...register('contactPreference')} />
-  Text
-</label>
+        <input
+          type="radio"
+          value="email"
+          {...register('contactPreference', { required: 'You must select an option' })}
+        />
+        Email
+      </label>
+      <label>
+        <input type="radio" value="phone" {...register('contactPreference')} />
+        Phone
+      </label>
+      <label>
+        <input type="radio" value="text" {...register('contactPreference')} />
+        Text
+      </label>
 
       <button type="submit">Submit</button>
     </form>
