@@ -7,7 +7,6 @@ const Order = () => {
   return (
     <>
       <Navbar />
-      <h1>Order Form</h1>
       <FormTest />
     </>
   );

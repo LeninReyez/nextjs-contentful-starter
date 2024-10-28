@@ -27,6 +27,7 @@ const FormTest = () => {
 
   // Handle form submission
   const onSubmit = (data) => {
+    console.log("ran onSubmit")
     emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ').then(
       (response) => {
         console.log('SUCCESS!', response.status, response.text, JSON.stringify(data));
@@ -309,23 +310,17 @@ const FormTest = () => {
         <label htmlFor="email">Select your contact preference(s):</label>
       </div>
       <label>
-        <input type="radio" value="email" {...register('email', { required: 'You must select an option' })} />
-        Email
-      </label>
-
-      <div>
-        <label>
-          <input type="radio" value="phone" {...register('phone', { required: 'You must select an option' })} />
-          Phone
-        </label>
-      </div>
-
-      <div>
-        <label>
-          <input type="radio" value="text" {...register('text', { required: 'You must select an option' })} />
-          Text
-        </label>
-      </div>
+  <input type="radio" value="email" {...register('contactPreference', { required: 'You must select an option' })} />
+  Email
+</label>
+<label>
+  <input type="radio" value="phone" {...register('contactPreference')} />
+  Phone
+</label>
+<label>
+  <input type="radio" value="text" {...register('contactPreference')} />
+  Text
+</label>
 
       <button type="submit">Submit</button>
     </form>
