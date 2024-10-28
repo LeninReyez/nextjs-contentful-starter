@@ -1,6 +1,6 @@
 import FormTest from '../components/FormTest.jsx';
 import Navbar from '../components/Navbar.jsx';
-import styles from '../../.next/static/css/app/layout.css';
+// import styles from '../../.next/static/css/app/layout.css';
 
 const About = () => {
   return (
