@@ -75,13 +75,6 @@ const FormTest = () => {
           #1 <b> Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and chocolate frostings.
         </label>
         <div style={{ marginTop: '10px', display: 'flex' }}>
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
-            <select {...register('cookie-1-layer')} style={{ marginRight: '10px' }}>
-              <option value="">Layer</option>
-              <option value="single">Single Layer</option>
-              <option value="double">Double Layer</option>
-            </select>
-          </div>
 
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
             <select {...register('cookie-1-quantaty')} style={{ marginRight: '10px' }}>
@@ -114,14 +107,60 @@ const FormTest = () => {
           #2 <b> Dark Chocolate Cashew & Sea Salt</b>; dairy-free, vanilla frosted (dairy free)
         </label>
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
-          <select
-            {...register('cookie-2-layer', { required: isOption2Checked ? 'Please select a layer' : false })}
-            style={{ marginRight: '10px' }} // Spacing between dropdown and checkbox
-          >
-            <option value="">Layer</option>
-            <option value="single">Single Layer</option>
-            <option value="double">Double Layer</option>
-          </select>
+          <label>
+            <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
+          </label>
+
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '25px' }}>
+            <select {...register('cookie-2-quantaty')} style={{ marginRight: '10px' }}>
+              <option value="">QTY</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div style={cardStyle}>
+        <label>
+          <input type="checkbox" value="Deluxe Chocolate Chip" {...register('cookie-1')} />
+          #3 <b> Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and chocolate frostings.
+        </label>
+        <div style={{ marginTop: '10px', display: 'flex' }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
+            <select {...register('cookie-1-quantaty')} style={{ marginRight: '10px' }}>
+              <option value="">QTY</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div style={cardStyle}>
+        <label>
+          <input
+            type="checkbox"
+            value="Dark Chocolate Cashew & Sea Salt"
+            {...register('cookie-2')}
+            onChange={(e) => {
+              const checked = e.target.checked;
+              setIsOption2Checked(checked);
+              if (!checked) {
+                setValue('cookie-2-layer', '');
+                setValue('no-cashews-selected', 'false');
+              }
+            }}
+          />
+          #4 <b> Dark Chocolate Cashew & Sea Salt</b>; dairy-free, vanilla frosted (dairy free)
+        </label>
+        <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <label>
             <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
           </label>
