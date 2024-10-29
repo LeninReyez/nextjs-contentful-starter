@@ -73,12 +73,23 @@ const FormTest = () => {
           <input type="checkbox" value="Deluxe Chocolate Chip" {...register('cookie-1')} />
           #1 <b> Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and chocolate frostings.
         </label>
-        <div style={{ marginTop: '10px' }}>
+        <div style={{ marginTop: '10px', display: 'flex' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
             <select {...register('cookie-1-layer')} style={{ marginRight: '10px' }}>
               <option value="">Layer</option>
               <option value="single">Single Layer</option>
               <option value="double">Double Layer</option>
+            </select>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
+            <select {...register('cookie-1-quantaty')} style={{ marginRight: '10px' }}>
+              <option value="">QTY</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
             </select>
           </div>
         </div>
@@ -113,6 +124,17 @@ const FormTest = () => {
           <label>
             <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
           </label>
+
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
+            <select {...register('cookie-2-quantaty')} style={{ marginRight: '10px' }}>
+              <option value="">QTY</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
         </div>
       </div>
 
