@@ -34,6 +34,7 @@ const FormTest = () => {
         'qeXWWBIPhLVcfD2yZ',
       );
       console.log('SUCCESS!', response.status, response.text, JSON.stringify(cleanedData));
+      window.location.href = '/thank-you';
     } catch (error) {
       console.log('FAILED...', error);
     }
