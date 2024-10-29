@@ -135,8 +135,8 @@ const FormTest = () => {
       </div>
 
       <div style={{ ...cardStyle }}>
-        <sup style={{ fontWeight: 'bold', textAlign: 'center' }}>
-          **48 HOUR NOTICE IS REQUIRED BEFORE SCHEDULED PICKUP.
+        <sup style={{ fontWeight: 'bold', textAlign: 'center', lineHeight: 'normal' }}>
+          **48 HOUR NOTICE IS REQUIRED BEFORE SCHEDULED PICKUP**
         </sup>
         <p style={{ fontWeight: 'bold', textAlign: 'center', fontSize: '10px', marginTop: '10px' }}>Pickup in West Normal</p>
       </div>
