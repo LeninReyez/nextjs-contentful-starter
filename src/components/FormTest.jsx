@@ -125,7 +125,7 @@ const FormTest = () => {
             <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
           </label>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '25px' }}>
             <select {...register('cookie-2-quantaty')} style={{ marginRight: '10px' }}>
               <option value="">QTY</option>
               <option value="1">1</option>
