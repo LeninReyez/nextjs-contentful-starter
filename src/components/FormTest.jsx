@@ -17,10 +17,10 @@ const FormTest = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data));
     // Remove empty fields
     const cleanedData = Object.fromEntries(Object.entries(data).filter(([_, value]) => value));
-  
+
     try {
       const response = await emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ');
       console.log('SUCCESS!', response.status, response.text, JSON.stringify(cleanedData));
@@ -37,8 +37,7 @@ const FormTest = () => {
     padding: '20px',
     margin: '10px 0',
     display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
+    flexDirection: 'column', // Stack elements vertically
   };
 
   const renderInput = (id, label, type = 'text', extraProps = {}) => (
@@ -50,19 +49,23 @@ const FormTest = () => {
   );
 
   return (
-    <form id="cookies-order" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '800px', margin: 'auto' }}>
-      <h2 style={{ textAlign: 'center', color: '#2B7EC3', margin: '20px 0' }}>Specialty Cookie Cakes</h2>
-      
+    <form id="cookies-order" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '800px', margin: 'auto', fontWeight: 'bold' }}>
+      <h2 style={{ textAlign: 'center', color: '#2B7EC3', margin: '20px 0', fontSize: '30px' }}>Specialty Cookie Cakes</h2>
+
       <div style={cardStyle}>
         <label>
           <input type="checkbox" value="Deluxe Chocolate Chip" {...register('cookie-1')} />
           #1 <b>Deluxe Chocolate Chip</b>
         </label>
-        <select {...register('cookie-1-layer')} style={{ marginLeft: '10px' }}>
-          <option value="">Layer</option>
-          <option value="single">Single Layer</option>
-          <option value="double">Double Layer</option>
-        </select>
+        <div style={{ marginTop: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
+          <select {...register('cookie-1-layer')} style={{ marginRight: '10px' }}>
+            <option value="">Layer</option>
+            <option value="single">Single Layer</option>
+            <option value="double">Double Layer</option>
+          </select>
+          </div>
+        </div>
       </div>
 
       <div style={cardStyle}>
@@ -82,17 +85,19 @@ const FormTest = () => {
           />
           #2 <b>Dark Chocolate Cashew & Sea Salt</b>
         </label>
-        <select
-          {...register('cookie-2-layer', { required: isOption2Checked ? 'Please select a layer' : false })}
-          style={{ marginLeft: '10px' }}
-        >
-          <option value="">Layer</option>
-          <option value="single">Single Layer</option>
-          <option value="double">Double Layer</option>
-        </select>
-        <label>
-          <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
-        </label>
+        <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
+          <select
+            {...register('cookie-2-layer', { required: isOption2Checked ? 'Please select a layer' : false })}
+            style={{ marginRight: '10px' }} // Spacing between dropdown and checkbox
+          >
+            <option value="">Layer</option>
+            <option value="single">Single Layer</option>
+            <option value="double">Double Layer</option>
+          </select>
+          <label>
+            <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
+          </label>
+        </div>
       </div>
 
       <div style={cardStyle}>
@@ -111,7 +116,7 @@ const FormTest = () => {
         {errors.selectedDate && <span style={{ color: 'red' }}>{errors.selectedDate.message}</span>}
       </div>
 
-      <h2 style={{ textAlign: 'center', color: '#2B7EC3', margin: '20px 0' }}>Contact Information</h2>
+      <h2 style={{ textAlign: 'center', color: '#2B7EC3', margin: '20px 0', fontSize: '20px', fontWeight: 'bold'}}>Contact Information</h2>
       {renderInput('name', 'Name', 'text', { required: 'Name is required' })}
       {renderInput('email', 'Email', 'email', {
         required: 'Email is required',
