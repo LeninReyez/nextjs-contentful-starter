@@ -215,7 +215,7 @@ const FormTest = () => {
 
       <div className="bottomMargin" style={{display: 'flex'}}>
         <label style={{marginRight: '10px'}}>Select your contact preference(s):</label>
-        <label>
+        <label style={{marginRight: '10px'}}>
         Email
           <input
           style={{marginLeft: '10px'}}
@@ -224,11 +224,11 @@ const FormTest = () => {
             {...register('contactPreference', { required: 'You must select an option' })}
           />
         </label>
-        <label>
+        <label style={{marginRight: '10px'}}>
         Phone
           <input style={{marginLeft: '10px'}} type="radio" value="phone" {...register('contactPreference')} /> 
         </label>
-        <label>
+        <label style={{marginRight: '10px'}}>
         Text
           <input style={{marginLeft: '10px'}} type="radio" value="text" {...register('contactPreference')} /> 
         </label>
