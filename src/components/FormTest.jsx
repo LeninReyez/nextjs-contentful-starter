@@ -1,362 +1,140 @@
 'use client';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import '../../styles/styles.css';
 import emailjs from 'emailjs-com';
-
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import '../../styles/styles.css';
 
 const FormTest = () => {
-  // Initialize useForm
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm();
-
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const [startDate, setStartDate] = useState(null);
+  const [isOption2Checked, setIsOption2Checked] = useState(false);
 
-  // Blocked dates (example: weekends and specific dates)
   const isBlockedDate = (date) => {
     const day = date.getDay();
-    return day === 0 || day === 6; // Block Sundays (0) and Saturdays (6)
-    // You can add more conditions for specific dates
+    return day === 0 || day === 6; // Block weekends
   };
 
-  // Handle form submission
-  const onSubmit = (data) => {
-    console.log("ran onSubmit")
-    emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ').then(
-      (response) => {
-        console.log('SUCCESS!', response.status, response.text, JSON.stringify(data));
-      },
-      (error) => {
-        console.log('FAILED...', error);
-      },
-    );
+  const onSubmit = async (data) => {
+    console.log(JSON.stringify(data))
+    // Remove empty fields
+    const cleanedData = Object.fromEntries(Object.entries(data).filter(([_, value]) => value));
+  
+    try {
+      const response = await emailjs.sendForm('service_bahenfj', 'template_550i7ji', '#cookies-order', 'qeXWWBIPhLVcfD2yZ');
+      console.log('SUCCESS!', response.status, response.text, JSON.stringify(cleanedData));
+    } catch (error) {
+      console.log('FAILED...', error);
+    }
   };
 
-  const myStyle = {
-    border: '1px solid black',
-    padding: '10px',
-  };
-
-  // Define styles as objects
   const cardStyle = {
     backgroundColor: '#fff',
     border: '1px solid #ddd',
     borderRadius: '12px',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.15)',
     padding: '20px',
+    margin: '10px 0',
     display: 'flex',
     flexWrap: 'wrap',
     alignItems: 'center',
-    transition: 'transform 0.2s, box-shadow 0.2s',
-    margin: '10px 0',
   };
 
-  const cardStyleNoFlex = {
-    backgroundColor: '#fff',
-    border: '1px solid #ddd',
-    borderRadius: '12px',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.15)',
-    padding: '20px',
-    alignItems: 'center',
-    transition: 'transform 0.2s, box-shadow 0.2s',
-    margin: '10px 0',
-  };
-
-  const cardStyleNoWrap = {
-    backgroundColor: '#fff',
-    border: '1px solid #ddd',
-    borderRadius: '12px',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.15)',
-    alignItems: 'center',
-    transition: 'transform 0.2s, box-shadow 0.2s',
-    padding: '10px',
-    textAlign: 'center'
-  };
-
-  const wrapMe = {
-    flexWrap: 'wrap',
-  };
-
-  const labelStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-  };
-
-  const inputStyle = {
-    marginRight: '3px',
-  };
-
-  const flavorNameStyle = {
-    fontSize: '16px',
-    lineHeight: '1.5',
-  };
-
-  const boldFlavorStyle = {
-    color: '#4B8FD5', // Change this to your preferred color
-    marginLeft: '10px',
-  };
-
-  const alignedStyle = {
-    display: 'flex',
-    alignItems: 'center', // Align items vertically in the center
-    lineHeight: '1.5', // Set line height to match your font size
-    marginBottom: '10px', // Optional: Space between rows
-  };
-
-  const dataStyle = {
-    marginRight: '10px', // Space between the label and the date input
-    // height: '40px', // Match the height of the input if needed
-    lineHeight: '11px', // Ensure line height matches the height
-    // width: '50%'
-  };
-
-  const datePickerStyle = {
-    height: '40px', // Set the same height as the label
-  };
+  const renderInput = (id, label, type = 'text', extraProps = {}) => (
+    <div className="bottomMargin">
+      <label htmlFor={id}>{label}:</label>
+      <input id={id} type={type} {...register(id, extraProps)} />
+      {errors[id] && <span style={{ color: 'red' }}>{errors[id].message}</span>}
+    </div>
+  );
 
   return (
     <form id="cookies-order" onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '800px', margin: 'auto' }}>
-      <div>
-        <label
-          style={{
-            textAlign: 'center',
-            fontSize: '18px', // Increase font size
-            fontWeight: 'bold', // Make the text bold
-            color: '#2B7EC3', // Use a standout color
-            backgroundColor: '#E0F7FA', // Light background color for contrast
-            padding: '10px', // Add some padding
-            borderRadius: '5px', // Rounded corners
-            display: 'block', // Make it a block element for better spacing
-            margin: '20px 0', // Add top and bottom margin
-          }}
-          htmlFor="email"
-        >
-          Specialty Cookie Cakes
+      <h2 style={{ textAlign: 'center', color: '#2B7EC3', margin: '20px 0' }}>Specialty Cookie Cakes</h2>
+      
+      <div style={cardStyle}>
+        <label>
+          <input type="checkbox" value="Deluxe Chocolate Chip" {...register('cookie-1')} />
+          #1 <b>Deluxe Chocolate Chip</b>
         </label>
+        <select {...register('cookie-1-layer')} style={{ marginLeft: '10px' }}>
+          <option value="">Layer</option>
+          <option value="single">Single Layer</option>
+          <option value="double">Double Layer</option>
+        </select>
       </div>
 
-
-
       <div style={cardStyle}>
-        <label style={labelStyle}>
+        <label>
           <input
             type="checkbox"
-            value="Deluxe Chocolate Chip"
-            {...register('orderType', {
-              required: 'You must select at least one option',
-            })}
-            style={inputStyle}
+            value="Dark Chocolate Cashew & Sea Salt"
+            {...register('cookie-2')}
+            onChange={(e) => {
+              const checked = e.target.checked;
+              setIsOption2Checked(checked);
+              if (!checked) {
+                setValue('cookie-2-layer', '');
+                setValue('no-cashews-selected', 'false');
+              }
+            }}
           />
-          <span style={flavorNameStyle}>
-            #1 <b style={boldFlavorStyle}> Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and
-            chocolate frostings.
-          </span>
-
+          #2 <b>Dark Chocolate Cashew & Sea Salt</b>
         </label>
-
-        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
-         <label style={{  padding: '5px'}} htmlFor="layers">
-            Layer:
-            <select style={{marginLeft: '5px'}} name="layer" id="option1" {...register('Deluxe Chocolate Chip Layer', { required: 'Please select a layer' })}>
-            <option value=""></option>
-              <option value="singlex">Single Layer</option>
-              <option value="doublex">Double Layer</option>
-            </select>
-          </label>
-        </div>
-      </div>
-
-      <div style={{ ...cardStyle, ...wrapMe }}>
-        <label style={labelStyle}>
-          <input style={inputStyle} type="checkbox" value="Dark Chocolate Cashew & Sea Salt" {...register('orderType')} />
-          <span style={flavorNameStyle}>
-            #2 <b style={boldFlavorStyle}> Dark Chocolate Cashew & Sea Salt</b>; dairy-free, vanilla frosted (dairy
-            free)
-          </span>
-        </label>
-
-        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
-        <label style={{  padding: '5px', marginRight: '20px' }} htmlFor="layers">
-            Layer:
-            <select style={{marginLeft: '5px'}} name="layer" id="option2" {...register('Dark Chocolate Cashew & Sea Salt Layer', { required: 'Please select a layer' })}>
-            <option value=""></option>
-              <option value="single">Single Layer</option>
-              <option value="double">Double Layer</option>
-            </select>
-          </label>
-
-          <input style={inputStyle} type="checkbox" id="vehicle1" name="cashews" value="no" />
-          <label htmlFor="vehicle1" style={{ marginLeft: '5px', marginRight: '10px' }}>
-            No Cashews
-          </label>
-        </div>
-      </div>
-
-      {/* <div style={cardStyle}>
-        <label style={labelStyle}>
-          <input style={inputStyle} type="checkbox" value="strawberry" {...register('flavors')} />
-          <span style={flavorNameStyle}>
-            #3 <b style={boldFlavorStyle}> White Chip Funfetti</b>; rainbow sprinkles and vanilla frosted
-          </span>
-        </label>
-        
-        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
-         <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="layers">
-            Layer:
-            <select name="layer" id="layers">
-              <option value="single">Single Layer</option>
-              <option value="double">Double Layer</option>
-            </select>
-          </label>
-        </div>
-        
-      </div>
-
-      <div style={cardStyle}>
-        <label style={labelStyle}>
-          <input type="checkbox" value="mint" {...register('flavors')} />
-          <span style={flavorNameStyle}>
-            #4 <b style={boldFlavorStyle}> Double Chocolate</b>; chocolate cookie and chips, vanilla frosted w/
-            chocolate sprinkles
-          </span>
-        </label>
-        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
-         <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="layers">
-            Layer:
-            <select name="layer" id="layers">
-              <option value="single">Single Layer</option>
-              <option value="double">Double Layer</option>
-            </select>
-          </label>
-        </div>
-      </div>
-
-      <div style={cardStyle}>
-        <label style={labelStyle}>
-          <input style={inputStyle} type="checkbox" value="triple-chocolate" {...register('flavors')} />
-          <span style={flavorNameStyle}>
-            #5 <b style={boldFlavorStyle}> Triple Chocolate</b>; chocolate cookie, chips and chocolate frosting
-          </span>
-        </label>
-        <div style={{ display: 'flex', alignItems: 'center', fontSize: '10px', marginLeft: '30px', marginTop: '10px'}}>
-         <label style={{ border: 'dashed black 1px', padding: '5px' }} htmlFor="layers">
-            Layer:
-            <select name="layer" id="layers">
-              <option value="single">Single Layer</option>
-              <option value="double">Double Layer</option>
-            </select>
-          </label>
-        </div>
-      </div> */}
-{/* Date Picker */}
-<div style={{ ...cardStyle, ...alignedStyle }}>
-  <label style={dataStyle} htmlFor="date">
-    Select Date:
-  </label>
-  <DatePicker
-    id="date"
-    selected={startDate}
-    filterDate={isBlockedDate} // Block certain dates
-    onChange={(date) => {
-      setStartDate(date);
-      setValue('selectedDate', date); // Set the value in react-hook-form
-    }}
-    placeholderText="Select a date"
-    className="date-picker" // Optional class for custom styling
-    required
-  />
-  {/* Hidden input to register the date with react-hook-form */}
-  <input type="hidden" {...register('selectedDate', { required: 'Date is required' })} />
-  {errors.selectedDate && <span style={{ color: 'red' }}>{errors.selectedDate.message}</span>}
-</div>
-
-<div style={{ ...cardStyleNoWrap }}>
-    <sup style={{fontWeight: 'bold', textAlign: 'center'}}> **48 HOUR NOTICE IS REQUIRED BEFORE SCHEDULED PICKUP.</sup>
-    <div>Pickup in West Normal</div>
-</div>
-
-
-      <div>
-        <label
-          style={{
-            textAlign: 'center',
-            fontSize: '18px', // Increase font size
-            fontWeight: 'bold', // Make the text bold
-            color: '#2B7EC3', // Use a standout color
-            backgroundColor: '#E0F8E0', // Light background color for contrast
-            padding: '10px', // Add some padding
-            borderRadius: '5px', // Rounded corners
-            display: 'block', // Make it a block element for better spacing
-            margin: '20px 0', // Add top and bottom margin
-          }}
-          htmlFor="email"
+        <select
+          {...register('cookie-2-layer', { required: isOption2Checked ? 'Please select a layer' : false })}
+          style={{ marginLeft: '10px' }}
         >
-          Contact Information
+          <option value="">Layer</option>
+          <option value="single">Single Layer</option>
+          <option value="double">Double Layer</option>
+        </select>
+        <label>
+          <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
         </label>
       </div>
 
-      <div className="bottomMargin">
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" {...register('name', { required: 'Name is required' })} />
-        {errors.name && <span style={{ color: 'red' }}>{errors.name.message}</span>}
-      </div>
-
-      <div className="bottomMargin">
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          type="email"
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value: /^\S+@\S+$/i,
-              message: 'Email is not valid',
-            },
-          })}
-        />
-        {errors.email && <span style={{ color: 'red' }}>{errors.email.message}</span>}
-      </div>
-
-      <div className="bottomMargin">
-        <label htmlFor="phone">Telephone:</label>
-        <input
-          type="tel"
-          id="phone"
-          {...register('phone', { required: 'Phone number is required' })}
-          name="phone"
-          placeholder="123-456-7890"
-          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+      <div style={cardStyle}>
+        <label>Select Date:</label>
+        <DatePicker
+          selected={startDate}
+          filterDate={isBlockedDate}
+          onChange={(date) => {
+            setStartDate(date);
+            setValue('selectedDate', date);
+          }}
+          placeholderText="Select a date"
           required
-        ></input>
-        {errors.phone && <span style={{ color: 'red' }}>{errors.phone.message}</span>}
+        />
+        <input type="hidden" {...register('selectedDate', { required: 'Date is required' })} />
+        {errors.selectedDate && <span style={{ color: 'red' }}>{errors.selectedDate.message}</span>}
       </div>
+
+      <h2 style={{ textAlign: 'center', color: '#2B7EC3', margin: '20px 0' }}>Contact Information</h2>
+      {renderInput('name', 'Name', 'text', { required: 'Name is required' })}
+      {renderInput('email', 'Email', 'email', {
+        required: 'Email is required',
+        pattern: { value: /^\S+@\S+$/, message: 'Email is not valid' },
+      })}
+      {renderInput('phone', 'Telephone', 'tel', { required: 'Phone number is required' })}
 
       <div className="bottomMargin">
-        <label htmlFor="email">Select your contact preference(s):</label>
+        <label>Select your contact preference(s):</label>
+        <label>
+          <input type="radio" value="email" {...register('contactPreference', { required: 'You must select an option' })} /> Email
+        </label>
+        <label>
+          <input type="radio" value="phone" {...register('contactPreference')} /> Phone
+        </label>
+        <label>
+          <input type="radio" value="text" {...register('contactPreference')} /> Text
+        </label>
       </div>
-      <label>
-  <input type="radio" value="email" {...register('contactPreference', { required: 'You must select an option' })} />
-  Email
-</label>
-<label>
-  <input type="radio" value="phone" {...register('contactPreference')} />
-  Phone
-</label>
-<label>
-  <input type="radio" value="text" {...register('contactPreference')} />
-  Text
-</label>
 
-<button type="submit" style={{ marginTop: '20px', padding: '10px 20px', backgroundColor: '#2B7EC3', color: '#fff', border: 'none', borderRadius: '5px' }}>
-  Submit
-</button>
+      <button type="submit" style={{ marginTop: '20px', padding: '10px 20px', backgroundColor: '#2B7EC3', color: '#fff', border: 'none', borderRadius: '5px' }}>
+        Submit
+      </button>
     </form>
   );
 };
