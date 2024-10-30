@@ -296,7 +296,7 @@ const FormTest = () => {
 
       {showMessage && (
         <div style={{...alert}}>
-          <strong>Info!</strong> We'll contact you using your preferred method to confirm your message.
+          <strong>Info!</strong> We will contact you using your preferred method to confirm your message.
         </div>
       )}
 
