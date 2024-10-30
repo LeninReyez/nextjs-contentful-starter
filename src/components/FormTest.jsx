@@ -24,6 +24,7 @@ const FormTest = () => {
   const [doubleDeluxeQuantity, setDoubleDeluxeQuantity] = useState(0);
   const [doubleDarkChocolateQuantity, setDoubleDarkChocolateQuantity] = useState(0);
   const ILLINOIS_TAX_RATE = 0.0625; // 6.25% sales tax
+  const [showMessage, setShowMessage] = useState(false);
 
   const isBlockedDate = (date) => {
     const day = date.getDay();
@@ -82,6 +83,16 @@ const FormTest = () => {
     display: 'flex',
     flexDirection: 'column', // Stack elements vertically
   };
+
+  const alert = {
+    backgroundColor: '#2196F3',
+    padding: '20px',
+    color: 'white',
+    opacity: '0.83',
+    transition: 'opacity 0.6s',
+    marginBottom: '15px',
+    borderRadius: '12px'
+  }
 
   const renderInput = (id, label, type = 'text', extraProps = {}) => (
     <div className="bottomMargin">
@@ -267,6 +278,27 @@ const FormTest = () => {
           Pickup in West Normal
         </p>
       </div>
+
+      <div style={{ ...cardStyle, display: 'block' }}>
+        <sup style={{ fontWeight: 'bold', textAlign: 'left', lineHeight: 'normal' }}>Custom Message:</sup>
+        <select
+          {...register('custom-message')}
+          style={{ marginLeft: '10px' }}
+          defaultValue="No"
+          onChange={(e) => {
+            setShowMessage(e.target.value === 'yes'); // Show message if "Yes" is selected
+          }}
+        >
+          <option value="No">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+
+      {showMessage && (
+        <div style={{...alert}}>
+          <strong>Info!</strong> We'll contact you using your preferred method to confirm your message.
+        </div>
+      )}
 
       <h2 style={{ textAlign: 'center', color: '#2B7EC3', margin: '20px 0', fontSize: '20px', fontWeight: 'bold' }}>
         Contact Information
