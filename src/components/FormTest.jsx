@@ -116,7 +116,7 @@ const FormTest = () => {
       <div style={cardStyle}>
         <label>
           <input type="checkbox" value="Deluxe Chocolate Chip" {...register('cookie-1')} />
-          #1 <b> Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and chocolate frostings.
+          #1 <b>Deluxe Chocolate Chip</b>; 9" round, single layer made with milk, semi, and dark chip mixture and frosted w/ vanilla and chocolate frostings.
         </label>
         <div style={{ marginTop: '10px', display: 'flex' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
@@ -149,7 +149,7 @@ const FormTest = () => {
               }
             }}
           />
-          #2 <b> Dark Chocolate Cashew & Sea Salt</b>; dairy-free, vanilla frosted (dairy free)
+          #2 <b> Dark Chocolate Cashew & Sea Salt</b>; 9" round, single layer made with dark chocolate chips, sea salt, and cashews, vanilla frosted (**dairy free)
         </label>
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -179,7 +179,7 @@ const FormTest = () => {
       <div style={cardStyle}>
         <label>
           <input type="checkbox" value="Deluxe Chocolate Chip" {...register('cookie-1')} />
-          #3 <b> Deluxe Chocolate Chip</b>; milk, semi, dark chips frosted w/ vanilla and chocolate frostings.
+          #3 <b> Deluxe Chocolate Chip</b>; 9" round, double layered made with a mixture of milk, semi, dark chips frosted w/ vanilla and chocolate frostings.
         </label>
         <div style={{ marginTop: '10px', display: 'flex' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
@@ -219,7 +219,7 @@ const FormTest = () => {
               }
             }}
           />
-          #4 <b> Dark Chocolate Cashew & Sea Salt</b>; dairy-free, vanilla frosted (dairy free)
+          #4 <b> Dark Chocolate Cashew & Sea Salt</b>; 9" round, double layered made with dark chocolate chips, sea salt, and cashews, vanilla frosted (**dairy free)
         </label>
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
