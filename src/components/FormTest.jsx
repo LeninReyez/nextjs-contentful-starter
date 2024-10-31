@@ -121,6 +121,12 @@ const FormTest = () => {
             onChange={(e) => {
               setIsCookie1Checked(e.target.checked);
               setValue('cookie-1', e.target.checked);
+
+              // Clear quantity if checkbox is unchecked
+              if (isCookie1Checked) {
+                setDeluxeQuantity(0); // Reset local state
+                setValue('cookie-1-quantity', ''); // Clear form value
+              }
             }}
           />
           #1 <b>Deluxe Chocolate Chip</b>; 9&quot; round, single layer made with milk, semi, and dark chip mixture and
@@ -187,7 +193,8 @@ const FormTest = () => {
               <option value="5">5</option>
             </select>
             <label>
-              <input type="checkbox" {...register('cookie-2-no-cashews-selected')} disabled={!isCookie2Checked} /> No Cashews
+              <input type="checkbox" {...register('cookie-2-no-cashews-selected')} disabled={!isCookie2Checked} /> No
+              Cashews
             </label>
             <span style={{ marginLeft: '10px' }}>Price: ${DARK_CHOCOLATE_PRICE}</span>
           </div>
