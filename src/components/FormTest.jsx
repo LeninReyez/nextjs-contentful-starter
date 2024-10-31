@@ -50,11 +50,11 @@ const FormTest = () => {
     }
   };
 
-  const handleDeluxeQuantityChange = (e) => {
-    const quantity = parseInt(e.target.value) || 0;
-    setDeluxeQuantity(quantity);
-    setValue('cookie-1-quantaty', quantity);
-  };
+  // const handleDeluxeQuantityChange = (e) => {
+  //   const quantity = parseInt(e.target.value) || 0;
+  //   setDeluxeQuantity(quantity);
+  //   setValue('cookie-1-quantaty', quantity);
+  // };
 
   const calculateTotalPrice = () => {
     const subtotal =
@@ -91,8 +91,8 @@ const FormTest = () => {
     opacity: '0.83',
     transition: 'opacity 0.6s',
     marginBottom: '15px',
-    borderRadius: '12px'
-  }
+    borderRadius: '12px',
+  };
 
   const renderInput = (id, label, type = 'text', extraProps = {}) => (
     <div className="bottomMargin">
@@ -116,11 +116,20 @@ const FormTest = () => {
       <div style={cardStyle}>
         <label>
           <input type="checkbox" value="Deluxe Chocolate Chip" {...register('cookie-1')} />
-          #1 <b>Deluxe Chocolate Chip</b>; 9&quot; round, single layer made with milk, semi, and dark chip mixture and frosted w/ vanilla and chocolate frostings.
+          #1 <b>Deluxe Chocolate Chip</b>; 9&quot; round, single layer made with milk, semi, and dark chip mixture and
+          frosted w/ vanilla and chocolate frostings.
         </label>
         <div style={{ marginTop: '10px', display: 'flex' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
-            <select value={deluxeQuantity} onChange={handleDeluxeQuantityChange} style={{ marginRight: '10px' }}>
+            <select
+              value={deluxeQuantity}
+              onChange={(e) => {
+                setDeluxeQuantity(Number(e.target.value));
+                setValue('cookie-1-quantity', e.target.value);
+              }}
+              style={{ marginRight: '10px' }}
+              {...register('cookie-1-quantity')}
+            >
               <option value="">QTY</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -149,7 +158,8 @@ const FormTest = () => {
               }
             }}
           />
-          #2 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, single layer made with dark chocolate chips, sea salt, and cashews, vanilla frosted (**dairy free)
+          #2 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, single layer made with dark chocolate chips, sea
+          salt, and cashews, vanilla frosted (**dairy free)
         </label>
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -157,9 +167,10 @@ const FormTest = () => {
               value={darkChocolateQuantity}
               onChange={(e) => {
                 setDarkChocolateQuantity(Number(e.target.value));
-                setValue('cookie-2-quantaty', e.target.value);
+                setValue('cookie-2-quantity', e.target.value);
               }}
               style={{ marginRight: '10px' }}
+              {...register('cookie-2-quantity')}
             >
               <option value="">QTY</option>
               <option value="1">1</option>
@@ -178,18 +189,19 @@ const FormTest = () => {
 
       <div style={cardStyle}>
         <label>
-          <input type="checkbox" value="Deluxe Chocolate Chip" {...register('cookie-1')} />
-          #3 <b> Deluxe Chocolate Chip</b>; 9&quot; round, double layered made with a mixture of milk, semi, dark chips frosted w/ vanilla and chocolate frostings.
+          <input type="checkbox" value="double-deluxe-chocolate-chip" {...register('cookie-3')} />
+          #3 <b> Deluxe Chocolate Chip</b>; 9&quot; round, double layered made with a mixture of milk, semi, dark chips
+          frosted w/ vanilla and chocolate frostings.
         </label>
         <div style={{ marginTop: '10px', display: 'flex' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
             <select
-              {...register('cookie-1-quantaty')}
+              {...register('double-deluxe-chocolate-chip-3-quantity')}
               style={{ marginRight: '10px' }}
               value={doubleDeluxeQuantity}
               onChange={(e) => {
                 setDoubleDeluxeQuantity(Number(e.target.value));
-                setValue('double-cookie-2-quantaty', e.target.value);
+                setValue('double-deluxe-chocolate-chip-3-quantity', e.target.value);
               }}
             >
               <option value="">QTY</option>
@@ -219,12 +231,13 @@ const FormTest = () => {
               }
             }}
           />
-          #4 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, double layered made with dark chocolate chips, sea salt, and cashews, vanilla frosted (**dairy free)
+          #4 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, double layered made with dark chocolate chips, sea
+          salt, and cashews, vanilla frosted (**dairy free)
         </label>
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <select
-              {...register('cookie-2-quantaty')}
+              {...register('cookie-4-quantity')}
               style={{ marginRight: '10px' }}
               value={doubleDarkChocolateQuantity}
               onChange={(e) => {
@@ -295,7 +308,7 @@ const FormTest = () => {
       </div>
 
       {showMessage && (
-        <div style={{...alert}}>
+        <div style={{ ...alert }}>
           <strong>Info!</strong> We will contact you using your preferred method to confirm your message.
         </div>
       )}
