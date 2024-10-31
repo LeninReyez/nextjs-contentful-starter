@@ -28,6 +28,7 @@ const FormTest = () => {
   const [doubleDarkChocolateQuantity, setDoubleDarkChocolateQuantity] = useState(0);
   const [isCookie1Checked, setIsCookie1Checked] = useState(false);
   const [isCookie2Checked, setIsCookie2Checked] = useState(false);
+  const [isCookie3Checked, setIsCookie3Checked] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
   const isBlockedDate = (date) => {
@@ -192,49 +193,46 @@ const FormTest = () => {
         </div>
       </div>
 
-      {/*  <div style={cardStyle}>
-  <label>
-    <input
-      type="checkbox"
-      value="double-deluxe-chocolate-chip"
-      {...register('cookie-3')}
-      onChange={(e) => {
-        const checked = e.target.checked;
-        if (!checked) {
-          setDoubleDeluxeQuantity(0); // Reset quantity if unchecked
-          setValue('double-deluxe-chocolate-chip-3-quantity', 0); // Update form value
-        }
-      }}
-    />
-    #3 <b> Deluxe Chocolate Chip</b>; 9&quot; round, double layered made with a mixture of milk, semi, dark chips
-    frosted w/ vanilla and chocolate frostings.
-  </label>
-  <div style={{ marginTop: '10px', display: 'flex' }}>
-    <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
-      <select
-        {...register('double-deluxe-chocolate-chip-3-quantity')}
-        style={{ marginRight: '10px' }}
-        value={doubleDeluxeQuantity}
-        onChange={(e) => {
-          setDoubleDeluxeQuantity(Number(e.target.value));
-          setValue('double-deluxe-chocolate-chip-3-quantity', e.target.value);
-        }}
-        disabled={!watch('cookie-3')} // Disable if checkbox is not checked
-      >
-        <option value="">QTY</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <span style={{ marginLeft: '10px' }}>Price: ${DOUBLE_DELUXE_PRICE}</span>
-    </div>
-  </div>
-</div>
+      <div id="cookie-3" style={cardStyle}>
+        <label>
+          <input
+            type="checkbox"
+            value="double-deluxe-chocolate-chip"
+            {...register('cookie-3')}
+            onChange={(e) => {
+              setIsCookie3Checked(e.target.checked);
+              setValue('cookie-3', e.target.checked);
+            }}
+          />
+          #3 <b> Deluxe Chocolate Chip</b>; 9&quot; round, double layered made with a mixture of milk, semi, dark chips
+          frosted w/ vanilla and chocolate frostings.
+        </label>
+        <div style={{ marginTop: '10px', display: 'flex' }}>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
+            <select
+              {...register('cookie-3-quantity')}
+              style={{ marginRight: '10px' }}
+              value={doubleDeluxeQuantity}
+              onChange={(e) => {
+                const quantity = Number(e.target.value);
+                setDoubleDeluxeQuantity(quantity);
+                setValue('cookie-3-quantity', quantity);
+              }}
+              disabled={!isCookie3Checked}
+            >
+              <option value="">QTY</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <span style={{ marginLeft: '10px' }}>Price: ${DOUBLE_DELUXE_PRICE}</span>
+          </div>
+        </div>
+      </div>
 
-
-      <div style={cardStyle}>
+      {/*   <div style={cardStyle}>
         <label>
           <input
             type="checkbox"
