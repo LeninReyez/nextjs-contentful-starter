@@ -11,29 +11,34 @@ const FormTest = () => {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm();
+
   const [startDate, setStartDate] = useState(null);
-  const [isOption2Checked, setIsOption2Checked] = useState(false);
-  const DELUXE_PRICE = 34.99; // Set the price for Deluxe Chocolate Chip
-  const DARK_CHOCOLATE_PRICE = 36.99; // Set the price for Dark Chocolate Cashew & Sea Salt
-  const DOUBLE_DELUXE_PRICE = 59.99; // Set the price for Deluxe Chocolate Chip
-  const DOUBLE_DARK_CHOCOLATE_PRICE = 64.99; // Set the price for Dark Chocolate Cashew & Sea Salt
+  const DELUXE_PRICE = 34.99;
+  const DARK_CHOCOLATE_PRICE = 36.99;
+  const DOUBLE_DELUXE_PRICE = 59.99;
+  const DOUBLE_DARK_CHOCOLATE_PRICE = 64.99;
+  const ILLINOIS_TAX_RATE = 0.0625;
+
   const [deluxeQuantity, setDeluxeQuantity] = useState(0);
   const [darkChocolateQuantity, setDarkChocolateQuantity] = useState(0);
   const [doubleDeluxeQuantity, setDoubleDeluxeQuantity] = useState(0);
   const [doubleDarkChocolateQuantity, setDoubleDarkChocolateQuantity] = useState(0);
-  const ILLINOIS_TAX_RATE = 0.0625; // 6.25% sales tax
+  const [isCookie1Checked, setIsCookie1Checked] = useState(false);
+  const [isCookie2Checked, setIsCookie2Checked] = useState(false);
+  const [isCookie3Checked, setIsCookie3Checked] = useState(false);
+  const [isCookie4Checked, setIsCookie4Checked] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
   const isBlockedDate = (date) => {
     const day = date.getDay();
-    return day === 0 || day === 6; // Block weekends
+    return day === 0 || day === 6;
   };
 
   const onSubmit = async (data) => {
     console.log(JSON.stringify(data));
-    // Remove empty fields
     const cleanedData = Object.fromEntries(Object.entries(data).filter(([_, value]) => value));
 
     try {
@@ -50,12 +55,6 @@ const FormTest = () => {
     }
   };
 
-  const handleDeluxeQuantityChange = (e) => {
-    const quantity = parseInt(e.target.value) || 0;
-    setDeluxeQuantity(quantity);
-    setValue('cookie-1-quantaty', quantity);
-  };
-
   const calculateTotalPrice = () => {
     const subtotal =
       DELUXE_PRICE * deluxeQuantity +
@@ -70,7 +69,7 @@ const FormTest = () => {
       totalWithTax: totalWithTax.toFixed(2),
       tax: tax.toFixed(2),
       subTotal: subtotal.toFixed(2),
-    }; // Return total as a fixed decimal value
+    };
   };
 
   const cardStyle = {
@@ -81,7 +80,7 @@ const FormTest = () => {
     padding: '20px',
     margin: '10px 0',
     display: 'flex',
-    flexDirection: 'column', // Stack elements vertically
+    flexDirection: 'column',
   };
 
   const alert = {
@@ -91,8 +90,8 @@ const FormTest = () => {
     opacity: '0.83',
     transition: 'opacity 0.6s',
     marginBottom: '15px',
-    borderRadius: '12px'
-  }
+    borderRadius: '12px',
+  };
 
   const renderInput = (id, label, type = 'text', extraProps = {}) => (
     <div className="bottomMargin">
@@ -113,14 +112,33 @@ const FormTest = () => {
       </h2>
 
       {/* Deluxe Chocolate Chip Cookie */}
-      <div style={cardStyle}>
+      <div id="cookie-1" style={cardStyle}>
         <label>
-          <input type="checkbox" value="Deluxe Chocolate Chip" {...register('cookie-1')} />
-          #1 <b>Deluxe Chocolate Chip</b>; 9&quot; round, single layer made with milk, semi, and dark chip mixture and frosted w/ vanilla and chocolate frostings.
+          <input
+            type="checkbox"
+            value="Deluxe Chocolate Chip"
+            {...register('cookie-1')}
+            onChange={(e) => {
+              setIsCookie1Checked(e.target.checked);
+              setValue('cookie-1', e.target.checked);
+            }}
+          />
+          #1 <b>Deluxe Chocolate Chip</b>; 9&quot; round, single layer made with milk, semi, and dark chip mixture and
+          frosted w/ vanilla and chocolate frostings.
         </label>
         <div style={{ marginTop: '10px', display: 'flex' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
-            <select value={deluxeQuantity} onChange={handleDeluxeQuantityChange} style={{ marginRight: '10px' }}>
+            <select
+              {...register('cookie-1-quantity')}
+              value={deluxeQuantity}
+              onChange={(e) => {
+                const quantity = Number(e.target.value);
+                setDeluxeQuantity(quantity);
+                setValue('cookie-1-quantity', quantity);
+              }}
+              style={{ marginRight: '10px' }}
+              disabled={!isCookie1Checked}
+            >
               <option value="">QTY</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -134,32 +152,32 @@ const FormTest = () => {
       </div>
 
       {/* Dark Chocolate Cashew & Sea Salt Cookie */}
-      <div style={cardStyle}>
+      <div id="cookie-2" style={cardStyle}>
         <label>
           <input
             type="checkbox"
             value="Dark Chocolate Cashew & Sea Salt"
             {...register('cookie-2')}
             onChange={(e) => {
-              const checked = e.target.checked;
-              setIsOption2Checked(checked);
-              if (!checked) {
-                setValue('cookie-2-layer', '');
-                setValue('no-cashews-selected', 'false');
-              }
+              setIsCookie2Checked(e.target.checked);
+              setValue('cookie-2', e.target.checked);
             }}
           />
-          #2 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, single layer made with dark chocolate chips, sea salt, and cashews, vanilla frosted (**dairy free)
+          #2 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, single layer made with dark chocolate chips, sea
+          salt, and cashews, vanilla frosted (**dairy free)
         </label>
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <select
+              {...register('cookie-2-quantity')}
               value={darkChocolateQuantity}
               onChange={(e) => {
-                setDarkChocolateQuantity(Number(e.target.value));
-                setValue('cookie-2-quantaty', e.target.value);
+                const quantity = Number(e.target.value);
+                setDarkChocolateQuantity(quantity);
+                setValue('cookie-2-quantity', quantity);
               }}
               style={{ marginRight: '10px' }}
+              disabled={!isCookie2Checked}
             >
               <option value="">QTY</option>
               <option value="1">1</option>
@@ -169,28 +187,39 @@ const FormTest = () => {
               <option value="5">5</option>
             </select>
             <label>
-              <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
+              <input type="checkbox" {...register('cookie-2-no-cashews-selected')} disabled={!isCookie2Checked} /> No Cashews
             </label>
             <span style={{ marginLeft: '10px' }}>Price: ${DARK_CHOCOLATE_PRICE}</span>
           </div>
         </div>
       </div>
 
-      <div style={cardStyle}>
+      <div id="cookie-3" style={cardStyle}>
         <label>
-          <input type="checkbox" value="Deluxe Chocolate Chip" {...register('cookie-1')} />
-          #3 <b> Deluxe Chocolate Chip</b>; 9&quot; round, double layered made with a mixture of milk, semi, dark chips frosted w/ vanilla and chocolate frostings.
+          <input
+            type="checkbox"
+            value="double-deluxe-chocolate-chip"
+            {...register('cookie-3')}
+            onChange={(e) => {
+              setIsCookie3Checked(e.target.checked);
+              setValue('cookie-3', e.target.checked);
+            }}
+          />
+          #3 <b> Deluxe Chocolate Chip</b>; 9&quot; round, double layered made with a mixture of milk, semi, dark chips
+          frosted w/ vanilla and chocolate frostings.
         </label>
         <div style={{ marginTop: '10px', display: 'flex' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
             <select
-              {...register('cookie-1-quantaty')}
+              {...register('cookie-3-quantity')}
               style={{ marginRight: '10px' }}
               value={doubleDeluxeQuantity}
               onChange={(e) => {
-                setDoubleDeluxeQuantity(Number(e.target.value));
-                setValue('double-cookie-2-quantaty', e.target.value);
+                const quantity = Number(e.target.value);
+                setDoubleDeluxeQuantity(quantity);
+                setValue('cookie-3-quantity', quantity);
               }}
+              disabled={!isCookie3Checked}
             >
               <option value="">QTY</option>
               <option value="1">1</option>
@@ -204,33 +233,32 @@ const FormTest = () => {
         </div>
       </div>
 
-      <div style={cardStyle}>
+      <div id="cookie-4" style={cardStyle}>
         <label>
           <input
             type="checkbox"
-            value="Dark Chocolate Cashew & Sea Salt"
-            {...register('cookie-2')}
+            value="double-dark-chocolate-cashew-and-sea-salt"
+            {...register('cookie-4')}
             onChange={(e) => {
-              const checked = e.target.checked;
-              setIsOption2Checked(checked);
-              if (!checked) {
-                setValue('cookie-2-layer', '');
-                setValue('no-cashews-selected', 'false');
-              }
+              setIsCookie4Checked(e.target.checked);
+              setValue('cookie-4', e.target.checked);
             }}
           />
-          #4 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, double layered made with dark chocolate chips, sea salt, and cashews, vanilla frosted (**dairy free)
+          #4 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, double layered made with dark chocolate chips, sea
+          salt, and cashews, vanilla frosted (**dairy free)
         </label>
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <select
-              {...register('cookie-2-quantaty')}
+              {...register('cookie-4-quantity')}
               style={{ marginRight: '10px' }}
               value={doubleDarkChocolateQuantity}
               onChange={(e) => {
-                setDoubleDarkChocolateQuantity(Number(e.target.value));
-                setValue('double-cookie-2-quantaty', e.target.value);
+                const quantity = Number(e.target.value);
+                setDoubleDarkChocolateQuantity(quantity);
+                setValue('double-dark-chocolate-cashew-and-sea-salt', quantity);
               }}
+              disabled={!isCookie4Checked}
             >
               <option value="">QTY</option>
               <option value="1">1</option>
@@ -240,7 +268,7 @@ const FormTest = () => {
               <option value="5">5</option>
             </select>
             <label>
-              <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
+              <input type="checkbox" {...register('cookie-4-no-cashews-selected')} /> No Cashews
             </label>
             <span style={{ marginLeft: '10px' }}>Price: ${DOUBLE_DARK_CHOCOLATE_PRICE}</span>
           </div>
@@ -295,7 +323,7 @@ const FormTest = () => {
       </div>
 
       {showMessage && (
-        <div style={{...alert}}>
+        <div style={{ ...alert }}>
           <strong>Info!</strong> We will contact you using your preferred method to confirm your message.
         </div>
       )}
