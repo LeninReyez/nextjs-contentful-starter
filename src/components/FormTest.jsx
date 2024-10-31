@@ -48,6 +48,10 @@ const FormTest = () => {
         '#cookies-order',
         'qeXWWBIPhLVcfD2yZ',
       );
+
+      // Store the cleaned data in local storage
+    localStorage.setItem('formData', JSON.stringify(cleanedData));
+
       console.log('SUCCESS!', response.status, response.text, JSON.stringify(cleanedData));
       window.location.href = '/thank-you';
     } catch (error) {
