@@ -27,6 +27,7 @@ const FormTest = () => {
   const [doubleDeluxeQuantity, setDoubleDeluxeQuantity] = useState(0);
   const [doubleDarkChocolateQuantity, setDoubleDarkChocolateQuantity] = useState(0);
   const [isCookie1Checked, setIsCookie1Checked] = useState(false);
+  const [isCookie2Checked, setIsCookie2Checked] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
   const isBlockedDate = (date) => {
@@ -149,19 +150,15 @@ const FormTest = () => {
       </div>
 
       {/* Dark Chocolate Cashew & Sea Salt Cookie */}
-      {/* <div style={cardStyle}>
+      <div id="cookie-2" style={cardStyle}>
         <label>
           <input
             type="checkbox"
             value="Dark Chocolate Cashew & Sea Salt"
             {...register('cookie-2')}
             onChange={(e) => {
-              const checked = e.target.checked;
-              setIsOption2Checked(checked);
-              if (!checked) {
-                setValue('cookie-2-layer', '');
-                setValue('no-cashews-selected', 'false');
-              }
+              setIsCookie2Checked(e.target.checked);
+              setValue('cookie-2', e.target.checked);
             }}
           />
           #2 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, single layer made with dark chocolate chips, sea
@@ -170,13 +167,15 @@ const FormTest = () => {
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <select
+              {...register('cookie-2-quantity')}
               value={darkChocolateQuantity}
               onChange={(e) => {
-                setDarkChocolateQuantity(Number(e.target.value));
-                setValue('cookie-2-quantity', e.target.value);
+                const quantity = Number(e.target.value);
+                setDarkChocolateQuantity(quantity);
+                setValue('cookie-2-quantity', quantity);
               }}
               style={{ marginRight: '10px' }}
-              {...register('cookie-2-quantity')}
+              disabled={!isCookie2Checked}
             >
               <option value="">QTY</option>
               <option value="1">1</option>
@@ -186,14 +185,14 @@ const FormTest = () => {
               <option value="5">5</option>
             </select>
             <label>
-              <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
+              <input type="checkbox" {...register('no-cashews-selected')} disabled={!isCookie2Checked} /> No Cashews
             </label>
             <span style={{ marginLeft: '10px' }}>Price: ${DARK_CHOCOLATE_PRICE}</span>
           </div>
         </div>
       </div>
 
-      <div style={cardStyle}>
+      {/*  <div style={cardStyle}>
   <label>
     <input
       type="checkbox"
