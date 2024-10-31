@@ -187,7 +187,7 @@ const FormTest = () => {
               <option value="5">5</option>
             </select>
             <label>
-              <input type="checkbox" {...register('no-cashews-selected')} disabled={!isCookie2Checked} /> No Cashews
+              <input type="checkbox" {...register('cookie-2-no-cashews-selected')} disabled={!isCookie2Checked} /> No Cashews
             </label>
             <span style={{ marginLeft: '10px' }}>Price: ${DARK_CHOCOLATE_PRICE}</span>
           </div>
@@ -268,7 +268,7 @@ const FormTest = () => {
               <option value="5">5</option>
             </select>
             <label>
-              <input type="checkbox" {...register('no-cashews-selected')} /> No Cashews
+              <input type="checkbox" {...register('cookie-4-no-cashews-selected')} /> No Cashews
             </label>
             <span style={{ marginLeft: '10px' }}>Price: ${DOUBLE_DARK_CHOCOLATE_PRICE}</span>
           </div>
