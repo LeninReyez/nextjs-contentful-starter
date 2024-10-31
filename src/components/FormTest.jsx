@@ -167,6 +167,13 @@ const FormTest = () => {
             onChange={(e) => {
               setIsCookie2Checked(e.target.checked);
               setValue('cookie-2', e.target.checked);
+
+            // Clear quantity if checkbox is unchecked
+            if (isCookie2Checked) {
+            setDarkChocolateQuantity(0); // Reset local state
+            setValue('cookie-2-quantity', ''); // Clear form value
+            setValue('cookie-2-no-cashews-selected', false); 
+          }
             }}
           />
           #2 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, single layer made with dark chocolate chips, sea
