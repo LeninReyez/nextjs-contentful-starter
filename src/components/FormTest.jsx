@@ -29,6 +29,7 @@ const FormTest = () => {
   const [isCookie1Checked, setIsCookie1Checked] = useState(false);
   const [isCookie2Checked, setIsCookie2Checked] = useState(false);
   const [isCookie3Checked, setIsCookie3Checked] = useState(false);
+  const [isCookie4Checked, setIsCookie4Checked] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
   const isBlockedDate = (date) => {
@@ -232,18 +233,15 @@ const FormTest = () => {
         </div>
       </div>
 
-      {/*   <div style={cardStyle}>
+      <div id="cookie-4" style={cardStyle}>
         <label>
           <input
             type="checkbox"
             value="double-dark-chocolate-cashew-and-sea-salt"
             {...register('cookie-4')}
             onChange={(e) => {
-              const checked = e.target.checked;
-              setIsOption2Checked(checked);
-              if (!checked) {
-                setValue('no-cashews-selected', false);
-              }
+              setIsCookie4Checked(e.target.checked);
+              setValue('cookie-4', e.target.checked);
             }}
           />
           #4 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, double layered made with dark chocolate chips, sea
@@ -252,13 +250,15 @@ const FormTest = () => {
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <select
-              {...register('double-dark-chocolate-cashew-and-sea-salt-quantity')}
+              {...register('cookie-4-quantity')}
               style={{ marginRight: '10px' }}
               value={doubleDarkChocolateQuantity}
               onChange={(e) => {
-                setDoubleDarkChocolateQuantity(Number(e.target.value));
-                setValue('double-dark-chocolate-cashew-and-sea-salt', e.target.value);
+                const quantity = Number(e.target.value);
+                setDoubleDarkChocolateQuantity(quantity);
+                setValue('double-dark-chocolate-cashew-and-sea-salt', quantity);
               }}
+              disabled={!isCookie4Checked}
             >
               <option value="">QTY</option>
               <option value="1">1</option>
@@ -273,7 +273,7 @@ const FormTest = () => {
             <span style={{ marginLeft: '10px' }}>Price: ${DOUBLE_DARK_CHOCOLATE_PRICE}</span>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <div style={cardStyle}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
