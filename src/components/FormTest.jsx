@@ -31,6 +31,7 @@ const FormTest = () => {
   const [isCookie3Checked, setIsCookie3Checked] = useState(false);
   const [isCookie4Checked, setIsCookie4Checked] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   const isBlockedDate = (date) => {
     const day = date.getDay();
@@ -57,6 +58,10 @@ const FormTest = () => {
     } catch (error) {
       console.log('FAILED...', error);
     }
+  };
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
   };
 
   const calculateTotalPrice = () => {
@@ -371,6 +376,22 @@ const FormTest = () => {
           <option value="No">No</option>
           <option value="yes">Yes</option>
         </select>
+      </div>
+
+      <div style={{ ...cardStyle, display: 'block' }}>
+        <sup style={{ fontWeight: 'bold', textAlign: 'left', lineHeight: 'normal' }}>Additional Instructions:</sup>
+      <input
+        type="text"
+        id="freeText"
+        value={inputValue}
+        onChange={handleChange}
+        placeholder="Enter your additional instructions here."
+        style={{ height: '50px', fontSize: '16px' }}
+      />
+      <div style={{textAlign: 'center', marginTop: '10px'}}>
+         <sup>We will try to accomodate all requests if possible.</sup>
+      </div>
+     
       </div>
 
       {showMessage && (
