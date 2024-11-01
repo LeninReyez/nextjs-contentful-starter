@@ -325,7 +325,7 @@ const FormTest = () => {
               <input type="checkbox" {...register('cookie-4-no-cashews-selected')} disabled={!isCookie4Checked}/> No Cashews
             </label>
             <span style={{ marginLeft: '10px' }}> 
-              Price: ${DOUBLE_DARK_CHOCOLATE_PRICE - (watch('cookie-4-no-cashews-selected') ? 4 : 0)}
+            Price: ${(((DOUBLE_DARK_CHOCOLATE_PRICE - (watch('cookie-4-no-cashews-selected') ? 4 : 0))).toFixed(2))}
               </span>
           </div>
         </div>
