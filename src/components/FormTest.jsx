@@ -60,15 +60,24 @@ const FormTest = () => {
   };
 
   const calculateTotalPrice = () => {
-    const subtotal =
+    let subtotal =
       DELUXE_PRICE * deluxeQuantity +
       DARK_CHOCOLATE_PRICE * darkChocolateQuantity +
       DOUBLE_DELUXE_PRICE * doubleDeluxeQuantity +
       DOUBLE_DARK_CHOCOLATE_PRICE * doubleDarkChocolateQuantity;
-
+  
+    // Adjust subtotal based on "No Cashews" selections
+    if (watch('cookie-2-no-cashews-selected')) {
+      subtotal -= 2 * darkChocolateQuantity; // Subtract $2 for each cookie-2 quantity if "No Cashews" is selected
+    }
+  
+    if (watch('cookie-4-no-cashews-selected')) {
+      subtotal -= 4 * doubleDarkChocolateQuantity; // Subtract $4 for each cookie-4 quantity if "No Cashews" is selected
+    }
+  
     const tax = subtotal * ILLINOIS_TAX_RATE;
     const totalWithTax = subtotal + tax;
-
+  
     return {
       totalWithTax: totalWithTax.toFixed(2),
       tax: tax.toFixed(2),
@@ -213,7 +222,9 @@ const FormTest = () => {
               <input type="checkbox" {...register('cookie-2-no-cashews-selected')} disabled={!isCookie2Checked} /> No
               Cashews
             </label>
-            <span style={{ marginLeft: '10px' }}>Price: ${DARK_CHOCOLATE_PRICE}</span>
+            <span style={{ marginLeft: '10px' }}>
+            Price: ${DARK_CHOCOLATE_PRICE - (watch('cookie-2-no-cashews-selected') ? 2 : 0)}
+            </span>
           </div>
         </div>
       </div>
@@ -308,7 +319,9 @@ const FormTest = () => {
             <label>
               <input type="checkbox" {...register('cookie-4-no-cashews-selected')} disabled={!isCookie4Checked}/> No Cashews
             </label>
-            <span style={{ marginLeft: '10px' }}>Price: ${DOUBLE_DARK_CHOCOLATE_PRICE}</span>
+            <span style={{ marginLeft: '10px' }}> 
+              Price: ${DOUBLE_DARK_CHOCOLATE_PRICE - (watch('cookie-4-no-cashews-selected') ? 4 : 0)}
+              </span>
           </div>
         </div>
       </div>
@@ -326,11 +339,11 @@ const FormTest = () => {
             placeholderText="Select a date"
             required
           />
-          <div style={{ marginLeft: '20px', fontWeight: 'bold' }}>
-            <div>SubTotal: ${calculateTotalPrice().subTotal}</div>
-            <div>Tax: ${calculateTotalPrice().tax}</div>
-            <div>Total: ${calculateTotalPrice().totalWithTax}</div>
-          </div>
+        <div style={{ marginLeft: '20px', fontWeight: 'bold' }}>
+          <div>SubTotal: ${calculateTotalPrice().subTotal}</div>
+          <div>Tax: ${calculateTotalPrice().tax}</div>
+          <div>Total: ${calculateTotalPrice().totalWithTax}</div>
+        </div>
         </div>
         <input type="hidden" {...register('selectedDate', { required: 'Date is required' })} />
         {errors.selectedDate && <span style={{ color: 'red' }}>{errors.selectedDate.message}</span>}
