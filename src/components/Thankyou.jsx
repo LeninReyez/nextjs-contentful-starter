@@ -17,28 +17,21 @@ const ThankYouContent = () => {
   return (
     <div>
       <div style={{ textAlign: 'center' }} className="w-full max-w-xl mx-auto flex-1">
-        <h3 className="text-center mb-6 text-3xl font-bold sm:text-4x1 sm:text-center" data-sb-field-path="heading">
-          Submitted
+        <div style={{marginTop: '20px'}}>
+          <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center" data-sb-field-path="heading">
+          Thank you!
         </h3>
-        <p className="mb-6 text-lg text-center" data-sb-field-path="body">
-          Thank You for submitting your request.
-        </p>
-
-        <div>
-          <h1>Thank You!</h1>
           <p>Your order has been received.</p>
           {formData ? (
-            <div>
-              <p>Order Details:</p>
-              <pre
-                style={{
-                  whiteSpace: 'pre-wrap', 
-                  wordWrap: 'break-word', 
-                  overflow: 'auto',
-                }}
-              >
-                {JSON.stringify(formData, null, 2)}
-              </pre>
+            <div style={{ textAlign: 'left', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9', width: '80%' }}>
+              <h2>Order Details:</h2>
+              <ul style={{ listStyleType: 'none', padding: 0 }}>
+                {Object.entries(formData).map(([key, value]) => (
+                  <li key={key} style={{ margin: '10px 0', padding: '10px', borderBottom: '1px solid #ddd' }}>
+                    <strong>{key}:</strong> {typeof value === 'object' ? JSON.stringify(value, null, 2) : value}
+                  </li>
+                ))}
+              </ul>
             </div>
           ) : (
             <p>No order data found.</p>
