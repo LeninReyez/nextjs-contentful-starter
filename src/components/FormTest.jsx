@@ -50,7 +50,7 @@ const FormTest = () => {
       );
 
       // Store the cleaned data in local storage
-    localStorage.setItem('formData', JSON.stringify(cleanedData));
+      localStorage.setItem('formData', JSON.stringify(cleanedData));
 
       console.log('SUCCESS!', response.status, response.text, JSON.stringify(cleanedData));
       window.location.href = '/thank-you';
@@ -97,6 +97,10 @@ const FormTest = () => {
     borderRadius: '12px',
   };
 
+  const input = {
+    marginRight: '10px',
+  };
+
   const renderInput = (id, label, type = 'text', extraProps = {}) => (
     <div className="bottomMargin">
       <label htmlFor={id}>{label}:</label>
@@ -119,6 +123,7 @@ const FormTest = () => {
       <div id="cookie-1" style={cardStyle}>
         <label>
           <input
+            style={{ ...input }}
             type="checkbox"
             value="Deluxe Chocolate Chip"
             {...register('cookie-1')}
@@ -165,6 +170,7 @@ const FormTest = () => {
       <div id="cookie-2" style={cardStyle}>
         <label>
           <input
+            style={{ ...input }}
             type="checkbox"
             value="Dark Chocolate Cashew & Sea Salt"
             {...register('cookie-2')}
@@ -215,6 +221,7 @@ const FormTest = () => {
       <div id="cookie-3" style={cardStyle}>
         <label>
           <input
+            style={{ ...input }}
             type="checkbox"
             value="double-deluxe-chocolate-chip"
             {...register('cookie-3')}
@@ -259,6 +266,7 @@ const FormTest = () => {
       <div id="cookie-4" style={cardStyle}>
         <label>
           <input
+            style={{ ...input }}
             type="checkbox"
             value="double-dark-chocolate-cashew-and-sea-salt"
             {...register('cookie-4')}
@@ -274,8 +282,8 @@ const FormTest = () => {
               }
             }}
           />
-           #4 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, double layered made with dark chocolate chips,
-          sea salt, and cashews, vanilla frosted (**dairy free)
+          #4 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, double layered made with dark chocolate chips, sea
+          salt, and cashews, vanilla frosted (**dairy free)
         </label>
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
