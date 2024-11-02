@@ -47,11 +47,11 @@ export const Hero = (props) => {
                   {content}
                 </Markdown>
                 <CookieIngredients />
-                <PhotoProvider>
+                {/* <PhotoProvider>
                   <PhotoView src="/cookie.png">
                     <img src="/cookie.png" alt="cookie" style={{ width: '20%', height: 'auto' }} />
                   </PhotoView>
-                </PhotoProvider>
+                </PhotoProvider> */}
               </>
             )}
           </div>
