@@ -5,6 +5,7 @@ import emailjs from 'emailjs-com';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/styles.css';
+import { format } from 'date-fns'; // Add this import at the top
 
 const FormTest = () => {
   const {
@@ -31,7 +32,6 @@ const FormTest = () => {
   const [isCookie3Checked, setIsCookie3Checked] = useState(false);
   const [isCookie4Checked, setIsCookie4Checked] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-  const [inputValue, setInputValue] = useState('');
 
   const isBlockedDate = (date) => {
     const day = date.getDay();
@@ -58,10 +58,6 @@ const FormTest = () => {
     } catch (error) {
       console.log('FAILED...', error);
     }
-  };
-
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
   };
 
   const calculateTotalPrice = () => {
@@ -340,6 +336,9 @@ const FormTest = () => {
             onChange={(date) => {
               setStartDate(date);
               setValue('selectedDate', date);
+
+              const formattedDate = format(date, 'MM/dd/yyyy'); // Format the date
+              setValue('selectedDate', formattedDate); // Use the formatted date
             }}
             placeholderText="Select a date"
             required
@@ -347,10 +346,12 @@ const FormTest = () => {
         <div style={{ marginLeft: '20px', fontWeight: 'bold' }}>
           <div>SubTotal: ${calculateTotalPrice().subTotal}</div>
           <div>Tax: ${calculateTotalPrice().tax}</div>
-          <div>Total: ${calculateTotalPrice().totalWithTax}</div>
+          <div {...register('total-price')}>Total: ${calculateTotalPrice().totalWithTax}</div>
+          <input type="hidden" {...register('total-price')} value={calculateTotalPrice().totalWithTax} />
         </div>
         </div>
-        <input type="hidden" {...register('selectedDate', { required: 'Date is required' })} />
+        <input type="hidden" {...register('selectedDate', { required: 'Date is required' })} value={startDate ? format(startDate, 'MM/dd/yyyy') : ''} />
+
         {errors.selectedDate && <span style={{ color: 'red' }}>{errors.selectedDate.message}</span>}
       </div>
 
@@ -383,10 +384,9 @@ const FormTest = () => {
       <input
         type="text"
         id="freeText"
-        value={inputValue}
-        onChange={handleChange}
         placeholder="Enter your additional instructions here."
         style={{ height: '50px', fontSize: '16px' }}
+        {...register('additional-instructions')}
       />
       <div style={{textAlign: 'center', marginTop: '10px'}}>
          <sup>We will try to accomodate all requests if possible.</sup>
