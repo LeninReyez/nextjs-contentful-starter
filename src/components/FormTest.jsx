@@ -39,7 +39,21 @@ const FormTest = () => {
   };
 
   const onSubmit = async (data) => {
+
+    // Check if at least one checkbox is selected
+    if (!isCookie1Checked && !isCookie2Checked && !isCookie3Checked && !isCookie4Checked) {
+      alert('Please select at least one cookie option before submitting.');
+      return; // Prevent form submission if no checkbox is checked
+    }
+
+
     console.log(JSON.stringify(data));
+  // Calculate the total price
+  const totalPrice = calculateTotalPrice().totalWithTax;
+
+  // Add the total price to the form data
+  data['total-price'] = totalPrice;  // Add total price to the data object
+
     const cleanedData = Object.fromEntries(Object.entries(data).filter(([_, value]) => value));
 
     try {
@@ -97,7 +111,7 @@ const FormTest = () => {
     flexDirection: 'column',
   };
 
-  const alert = {
+  const alertStyle = {
     backgroundColor: '#2196F3',
     padding: '20px',
     color: 'white',
@@ -306,7 +320,7 @@ const FormTest = () => {
               onChange={(e) => {
                 const quantity = Number(e.target.value);
                 setDoubleDarkChocolateQuantity(quantity);
-                setValue('double-dark-chocolate-cashew-and-sea-salt', quantity);
+                setValue('cookie-4-quantity', quantity);
               }}
               disabled={!isCookie4Checked}
             >
@@ -395,7 +409,7 @@ const FormTest = () => {
       </div>
 
       {showMessage && (
-        <div style={{ ...alert }}>
+        <div style={{ ...alertStyle }}>
           <strong>Info!</strong> We will contact you using your preferred method to confirm your message.
         </div>
       )}
