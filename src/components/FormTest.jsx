@@ -40,6 +40,12 @@ const FormTest = () => {
 
   const onSubmit = async (data) => {
     console.log(JSON.stringify(data));
+  // Calculate the total price
+  const totalPrice = calculateTotalPrice().totalWithTax;
+
+  // Add the total price to the form data
+  data['total-price'] = totalPrice;  // Add total price to the data object
+
     const cleanedData = Object.fromEntries(Object.entries(data).filter(([_, value]) => value));
 
     try {
