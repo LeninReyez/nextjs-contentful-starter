@@ -306,7 +306,7 @@ const FormTest = () => {
               onChange={(e) => {
                 const quantity = Number(e.target.value);
                 setDoubleDarkChocolateQuantity(quantity);
-                setValue('double-dark-chocolate-cashew-and-sea-salt', quantity);
+                setValue('cookie-4-quantity', quantity);
               }}
               disabled={!isCookie4Checked}
             >
