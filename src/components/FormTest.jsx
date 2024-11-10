@@ -39,20 +39,18 @@ const FormTest = () => {
   };
 
   const onSubmit = async (data) => {
-
     // Check if at least one checkbox is selected
     if (!isCookie1Checked && !isCookie2Checked && !isCookie3Checked && !isCookie4Checked) {
       alert('Please select at least one cookie option before submitting.');
       return; // Prevent form submission if no checkbox is checked
     }
 
-
     console.log(JSON.stringify(data));
-  // Calculate the total price
-  const totalPrice = calculateTotalPrice().totalWithTax;
+    // Calculate the total price
+    const totalPrice = calculateTotalPrice().totalWithTax;
 
-  // Add the total price to the form data
-  data['total-price'] = totalPrice;  // Add total price to the data object
+    // Add the total price to the form data
+    data['total-price'] = totalPrice; // Add total price to the data object
 
     const cleanedData = Object.fromEntries(Object.entries(data).filter(([_, value]) => value));
 
@@ -80,19 +78,19 @@ const FormTest = () => {
       DARK_CHOCOLATE_PRICE * darkChocolateQuantity +
       DOUBLE_DELUXE_PRICE * doubleDeluxeQuantity +
       DOUBLE_DARK_CHOCOLATE_PRICE * doubleDarkChocolateQuantity;
-  
+
     // Adjust subtotal based on "No Cashews" selections
     if (watch('cookie-2-no-cashews-selected')) {
       subtotal -= 2 * darkChocolateQuantity; // Subtract $2 for each cookie-2 quantity if "No Cashews" is selected
     }
-  
+
     if (watch('cookie-4-no-cashews-selected')) {
       subtotal -= 4 * doubleDarkChocolateQuantity; // Subtract $4 for each cookie-4 quantity if "No Cashews" is selected
     }
-  
+
     const tax = subtotal * ILLINOIS_TAX_RATE;
     const totalWithTax = subtotal + tax;
-  
+
     return {
       totalWithTax: totalWithTax.toFixed(2),
       tax: tax.toFixed(2),
@@ -133,6 +131,19 @@ const FormTest = () => {
     </div>
   );
 
+  const renderContactMethodDropdown = (id, label, extraProps = {}) => (
+    <div className="bottomMargin">
+      <label htmlFor={id}>{label}:</label>
+      <select id={id} {...register(id, extraProps)}>
+        <option value="">Select a contact method</option>
+        <option value="email">Email</option>
+        <option value="text">Text</option>
+        <option value="tel">Telephone</option>
+      </select>
+      {errors[id] && <span style={{ color: 'red' }}>{errors[id].message}</span>}
+    </div>
+  );
+
   return (
     <form
       id="cookies-order"
@@ -168,7 +179,10 @@ const FormTest = () => {
         <div style={{ marginTop: '10px', display: 'flex' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
             <select
-              {...register('cookie-1-quantity')}
+              {...register('cookie-1-quantity', {
+                required: isCookie1Checked ? 'Please select a quantity' : false, // Conditionally add required validation
+                min: isCookie1Checked ? 1 : undefined, // Minimum quantity 1 if selected
+              })}
               value={deluxeQuantity}
               onChange={(e) => {
                 const quantity = Number(e.target.value);
@@ -188,6 +202,7 @@ const FormTest = () => {
             <span style={{ marginLeft: '10px' }}>Price: ${DELUXE_PRICE}</span>
           </div>
         </div>
+        {errors['cookie-1-quantity'] && <span style={{ color: 'red' }}>{errors['cookie-1-quantity'].message}</span>}
       </div>
 
       {/* Dark Chocolate Cashew & Sea Salt Cookie */}
@@ -216,7 +231,10 @@ const FormTest = () => {
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <select
-              {...register('cookie-2-quantity')}
+              {...register('cookie-2-quantity', {
+                required: isCookie2Checked ? 'Please select a quantity' : false, // Conditionally add required validation
+                min: isCookie2Checked ? 1 : undefined, // Minimum quantity 1 if selected
+              })}
               value={darkChocolateQuantity}
               onChange={(e) => {
                 const quantity = Number(e.target.value);
@@ -238,10 +256,11 @@ const FormTest = () => {
               Cashews
             </label>
             <span style={{ marginLeft: '10px' }}>
-            Price: ${DARK_CHOCOLATE_PRICE - (watch('cookie-2-no-cashews-selected') ? 2 : 0)}
+              Price: ${DARK_CHOCOLATE_PRICE - (watch('cookie-2-no-cashews-selected') ? 2 : 0)}
             </span>
           </div>
         </div>
+        {errors['cookie-2-quantity'] && <span style={{ color: 'red' }}>{errors['cookie-2-quantity'].message}</span>}
       </div>
 
       <div id="cookie-3" style={cardStyle}>
@@ -267,7 +286,10 @@ const FormTest = () => {
         <div style={{ marginTop: '10px', display: 'flex' }}>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
             <select
-              {...register('cookie-3-quantity')}
+              {...register('cookie-3-quantity', {
+                required: isCookie3Checked ? 'Please select a quantity' : false, // Conditionally add required validation
+                min: isCookie3Checked ? 1 : undefined, // Minimum quantity 1 if selected
+              })}
               style={{ marginRight: '10px' }}
               value={doubleDeluxeQuantity}
               onChange={(e) => {
@@ -287,6 +309,7 @@ const FormTest = () => {
             <span style={{ marginLeft: '10px' }}>Price: ${DOUBLE_DELUXE_PRICE}</span>
           </div>
         </div>
+        {errors['cookie-3-quantity'] && <span style={{ color: 'red' }}>{errors['cookie-3-quantity'].message}</span>}
       </div>
 
       <div id="cookie-4" style={cardStyle}>
@@ -314,7 +337,10 @@ const FormTest = () => {
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <select
-              {...register('cookie-4-quantity')}
+              {...register('cookie-4-quantity', {
+                required: isCookie4Checked ? 'Please select a quantity' : false, // Conditionally add required validation
+                min: isCookie4Checked ? 1 : undefined, // Minimum quantity 1 if selected
+              })}
               style={{ marginRight: '10px' }}
               value={doubleDarkChocolateQuantity}
               onChange={(e) => {
@@ -332,13 +358,15 @@ const FormTest = () => {
               <option value="5">5</option>
             </select>
             <label>
-              <input type="checkbox" {...register('cookie-4-no-cashews-selected')} disabled={!isCookie4Checked}/> No Cashews
+              <input type="checkbox" {...register('cookie-4-no-cashews-selected')} disabled={!isCookie4Checked} /> No
+              Cashews
             </label>
-            <span style={{ marginLeft: '10px' }}> 
-            Price: ${(((DOUBLE_DARK_CHOCOLATE_PRICE - (watch('cookie-4-no-cashews-selected') ? 4 : 0))).toFixed(2))}
-              </span>
+            <span style={{ marginLeft: '10px' }}>
+              Price: ${(DOUBLE_DARK_CHOCOLATE_PRICE - (watch('cookie-4-no-cashews-selected') ? 4 : 0)).toFixed(2)}
+            </span>
           </div>
         </div>
+        {errors['cookie-4-quantity'] && <span style={{ color: 'red' }}>{errors['cookie-4-quantity'].message}</span>}
       </div>
 
       <div style={cardStyle}>
@@ -357,14 +385,18 @@ const FormTest = () => {
             placeholderText="Select a date"
             required
           />
-        <div style={{ marginLeft: '20px', fontWeight: 'bold' }}>
-          <div>SubTotal: ${calculateTotalPrice().subTotal}</div>
-          <div>Tax: ${calculateTotalPrice().tax}</div>
-          <div {...register('total-price')}>Total: ${calculateTotalPrice().totalWithTax}</div>
-          <input type="hidden" {...register('total-price')} value={calculateTotalPrice().totalWithTax} />
+          <div style={{ marginLeft: '20px', fontWeight: 'bold' }}>
+            <div>SubTotal: ${calculateTotalPrice().subTotal}</div>
+            <div>Tax: ${calculateTotalPrice().tax}</div>
+            <div {...register('total-price')}>Total: ${calculateTotalPrice().totalWithTax}</div>
+            <input type="hidden" {...register('total-price')} value={calculateTotalPrice().totalWithTax} />
+          </div>
         </div>
-        </div>
-        <input type="hidden" {...register('selectedDate', { required: 'Date is required' })} value={startDate ? format(startDate, 'MM/dd/yyyy') : ''} />
+        <input
+          type="hidden"
+          {...register('selectedDate', { required: 'Date is required' })}
+          value={startDate ? format(startDate, 'MM/dd/yyyy') : ''}
+        />
 
         {errors.selectedDate && <span style={{ color: 'red' }}>{errors.selectedDate.message}</span>}
       </div>
@@ -395,17 +427,16 @@ const FormTest = () => {
 
       <div style={{ ...cardStyle, display: 'block' }}>
         <sup style={{ fontWeight: 'bold', textAlign: 'left', lineHeight: 'normal' }}>Additional Instructions:</sup>
-      <input
-        type="text"
-        id="freeText"
-        placeholder="Enter your additional instructions here."
-        style={{ height: '50px', fontSize: '16px' }}
-        {...register('additional-instructions')}
-      />
-      <div style={{textAlign: 'center', marginTop: '10px'}}>
-         <sup>We will try to accomodate all requests if possible.</sup>
-      </div>
-     
+        <input
+          type="text"
+          id="freeText"
+          placeholder="Enter your additional instructions here."
+          style={{ height: '50px', fontSize: '16px' }}
+          {...register('additional-instructions')}
+        />
+        <div style={{ textAlign: 'center', marginTop: '10px' }}>
+          <sup>We will try to accomodate all requests if possible.</sup>
+        </div>
       </div>
 
       {showMessage && (
@@ -424,26 +455,9 @@ const FormTest = () => {
       })}
       {renderInput('phone', 'Telephone', 'tel', { required: 'Phone number is required' })}
 
-      <div className="bottomMargin" style={{ display: 'flex' }}>
-        <label style={{ marginRight: '10px' }}>Select your contact preference(s):</label>
-        <label style={{ marginRight: '10px' }}>
-          Email
-          <input
-            style={{ marginLeft: '10px' }}
-            type="radio"
-            value="email"
-            {...register('contactPreference', { required: 'You must select an option' })}
-          />
-        </label>
-        <label style={{ marginRight: '10px' }}>
-          Phone
-          <input style={{ marginLeft: '10px' }} type="radio" value="phone" {...register('contactPreference')} />
-        </label>
-        <label style={{ marginRight: '10px' }}>
-          Text
-          <input style={{ marginLeft: '10px' }} type="radio" value="text" {...register('contactPreference')} />
-        </label>
-      </div>
+      {renderContactMethodDropdown('contact-method', 'Preferred Contact Method', {
+        required: 'Please select a contact method',
+      })}
 
       <button
         type="submit"
