@@ -4,14 +4,26 @@ const ThankYouContent = () => {
   const [formData, setFormData] = useState(null);
 
   useEffect(() => {
-    // Retrieve data from local storage
-    const data = localStorage.getItem('formData');
-    if (data) {
-      setFormData(JSON.parse(data));
-      // Optionally, remove data from local storage if it's no longer needed
-      localStorage.removeItem('formData');
+    if (typeof localStorage !== 'undefined') {
+      // Retrieve data from local storage
+      const data = localStorage.getItem('formData');
+      try {
+        if (data) {
+          setFormData(JSON.parse(data));
+          // Optionally, remove data from local storage if it's no longer needed
+          localStorage.removeItem('formData');
+        } else {
+          console.log('No data found in localStorage');
+        }
+      } catch (error) {
+        console.error('Error parsing formData:', error);
+      }
+    } else {
+      console.log('localStorage is not available');
     }
   }, []);
+
+  console.log(formData); // Debugging line to check the data
 
   if (!formData) {
     return (
@@ -26,6 +38,7 @@ const ThankYouContent = () => {
 
   return (
     <div>
+      {JSON.stringify(formData)} {/* Debugging line to view formData */}
       <div style={{ textAlign: 'center' }} className="w-full max-w-xl mx-auto flex-1">
         <div style={{ marginTop: '20px' }}>
           <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center" data-sb-field-path="heading">
@@ -73,9 +86,11 @@ const ThankYouContent = () => {
             <div style={{ marginBottom: '20px', textAlign: 'center' }}>
               <h3>Additional Details:</h3>
               <ul style={{ listStyleType: 'none', padding: 0 }}>
-                <li style={{ margin: '10px 0', padding: '10px', borderBottom: '1px solid #ddd' }}>
-                  <strong>Custom Message:</strong> {formData['custom-message']}
-                </li>
+                {formData['custom-message'] && (
+                  <li style={{ margin: '10px 0', padding: '10px', borderBottom: '1px solid #ddd' }}>
+                    <strong>Custom Message:</strong> {formData['custom-message']}
+                  </li>
+                )}
                 <li style={{ margin: '10px 0', padding: '10px', borderBottom: '1px solid #ddd' }}>
                   <strong>Additional Instructions:</strong> {formData['additional-instructions'] || 'None'}
                 </li>
