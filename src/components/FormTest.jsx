@@ -56,10 +56,10 @@ const FormTest = () => {
 
     try {
       const response = await emailjs.sendForm(
-        'service_6m0rk9b',
-        'template_550i7ji',
+        'service_5xwvrum',
+        'template_icx3u2c',
         '#cookies-order',
-        'qeXWWBIPhLVcfD2yZ',
+        'BVsL3cTPaRR3vE4FH',
       );
 
       // Store the cleaned data in local storage
@@ -389,7 +389,7 @@ const FormTest = () => {
           <div style={{ marginLeft: '20px', fontWeight: 'bold' }}>
             <div>SubTotal: ${calculateTotalPrice().subTotal}</div>
             <div>Tax: ${calculateTotalPrice().tax}</div>
-            <div {...register('total-price')}>Total: ${calculateTotalPrice().totalWithTax}</div>
+            <div>Total: ${calculateTotalPrice().totalWithTax}</div>
             <input type="hidden" {...register('total-price')} value={calculateTotalPrice().totalWithTax} />
           </div>
         </div>
