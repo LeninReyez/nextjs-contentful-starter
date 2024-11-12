@@ -1,4 +1,4 @@
-import FormTest from '../components/FormTest.jsx';
+import FormTest from '../components/Form.jsx';
 import Navbar from '../components/Navbar.jsx';
 import '../../styles/styles.css'
 
