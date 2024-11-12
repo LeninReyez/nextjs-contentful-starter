@@ -38,7 +38,6 @@ const ThankYouContent = () => {
 
   return (
     <div>
-      {JSON.stringify(formData)} {/* Debugging line to view formData */}
       <div style={{ textAlign: 'center' }} className="w-full max-w-xl mx-auto flex-1">
         <div style={{ marginTop: '20px' }}>
           <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center" data-sb-field-path="heading">

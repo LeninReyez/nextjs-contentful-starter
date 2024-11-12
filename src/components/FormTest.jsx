@@ -164,7 +164,7 @@ const FormTest = () => {
             {...register('cookie-1')}
             onChange={(e) => {
               setIsCookie1Checked(e.target.checked);
-              setValue('cookie-1', e.target.checked);
+              setValue('cookie-1', e.target.checked ? 'Deluxe Chocolate Chip' : '');
 
               // Clear quantity if checkbox is unchecked
               if (isCookie1Checked) {
@@ -215,7 +215,7 @@ const FormTest = () => {
             {...register('cookie-2')}
             onChange={(e) => {
               setIsCookie2Checked(e.target.checked);
-              setValue('cookie-2', e.target.checked);
+              setValue('cookie-2', e.target.checked ? 'Dark Chocolate Cashew & Sea Salt' : '');
 
               // Clear quantity if checkbox is unchecked
               if (isCookie2Checked) {
@@ -272,7 +272,7 @@ const FormTest = () => {
             {...register('cookie-3')}
             onChange={(e) => {
               setIsCookie3Checked(e.target.checked);
-              setValue('cookie-3', e.target.checked);
+              setValue('cookie-3', e.target.checked ? 'double-deluxe-chocolate-chip' : '');
 
               if (isCookie3Checked) {
                 setDoubleDeluxeQuantity(0);
@@ -321,7 +321,8 @@ const FormTest = () => {
             {...register('cookie-4')}
             onChange={(e) => {
               setIsCookie4Checked(e.target.checked);
-              setValue('cookie-4', e.target.checked);
+              setValue('cookie-4', e.target.checked ? 'double-dark-chocolate-cashew-and-sea-salt' : '');
+              
 
               // Clear quantity if checkbox is unchecked
               if (isCookie4Checked) {
