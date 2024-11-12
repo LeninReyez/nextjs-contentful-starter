@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/styles.css';
 import { format } from 'date-fns'; // Add this import at the top
 
-const FormTest = () => {
+const Form = () => {
   const {
     register,
     handleSubmit,
@@ -477,4 +477,4 @@ const FormTest = () => {
   );
 };
 
-export default FormTest;
+export default Form;
