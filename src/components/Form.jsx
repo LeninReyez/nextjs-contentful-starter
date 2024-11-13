@@ -35,7 +35,7 @@ const Form = () => {
 
   const isBlockedDate = (date) => {
     const day = date.getDay();
-    return day === 0 || day === 6;
+    return day === 2 || day === 5;  // unblock Tuesday (2) and Friday (5)
   };
 
   const onSubmit = async (data) => {
