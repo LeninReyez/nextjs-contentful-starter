@@ -393,6 +393,7 @@ const Form = () => {
             <input type="hidden" {...register('total-price')} value={calculateTotalPrice().totalWithTax} />
           </div>
         </div>
+        <span>**Default pickup time is 5:30PM unless specified under special instructions.</span>
         <input
           type="hidden"
           {...register('selectedDate', { required: 'Date is required' })}
