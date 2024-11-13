@@ -18,9 +18,9 @@ const Form = () => {
 
   const [startDate, setStartDate] = useState(null);
   const DELUXE_PRICE = 34.99;
-  const DARK_CHOCOLATE_PRICE = 36.99;
+  const DARK_CHOCOLATE_PRICE = 34.99;
   const DOUBLE_DELUXE_PRICE = 59.99;
-  const DOUBLE_DARK_CHOCOLATE_PRICE = 64.99;
+  const DOUBLE_DARK_CHOCOLATE_PRICE = 59.99;
   const ILLINOIS_TAX_RATE = 0.0625;
 
   const [deluxeQuantity, setDeluxeQuantity] = useState(0);
@@ -211,21 +211,21 @@ const Form = () => {
           <input
             style={{ ...input }}
             type="checkbox"
-            value="Dark Chocolate Cashew & Sea Salt"
+            value="Dark Chocolate Chip & Sea Salt"
             {...register('cookie-2')}
             onChange={(e) => {
               setIsCookie2Checked(e.target.checked);
-              setValue('cookie-2', e.target.checked ? 'Dark Chocolate Cashew & Sea Salt' : '');
+              setValue('cookie-2', e.target.checked ? 'Dark Chocolate Chip & Sea Salt' : '');
 
               // Clear quantity if checkbox is unchecked
               if (isCookie2Checked) {
                 setDarkChocolateQuantity(0); // Reset local state
                 setValue('cookie-2-quantity', ''); // Clear form value
-                setValue('cookie-2-no-cashews-selected', false);
+                // setValue('cookie-2-no-cashews-selected', false);
               }
             }}
           />
-          #2 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, single layer made with dark chocolate chips, sea
+          #2 <b> Dark Chocolate Chip & Sea Salt</b>; 9&quot; round, single layer made with dark chocolate chips, sea
           salt, and cashews, vanilla frosted (**dairy free)
         </label>
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
@@ -251,10 +251,10 @@ const Form = () => {
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
-            <label>
+            {/* <label>
               <input type="checkbox" {...register('cookie-2-no-cashews-selected')} disabled={!isCookie2Checked} /> No
               Cashews
-            </label>
+            </label> */}
             <span style={{ marginLeft: '10px' }}>
               Price: ${DARK_CHOCOLATE_PRICE - (watch('cookie-2-no-cashews-selected') ? 2 : 0)}
             </span>
@@ -317,22 +317,22 @@ const Form = () => {
           <input
             style={{ ...input }}
             type="checkbox"
-            value="double-dark-chocolate-cashew-and-sea-salt"
+            value="double-dark-chocolate-chip-and-sea-salt"
             {...register('cookie-4')}
             onChange={(e) => {
               setIsCookie4Checked(e.target.checked);
-              setValue('cookie-4', e.target.checked ? 'double-dark-chocolate-cashew-and-sea-salt' : '');
+              setValue('cookie-4', e.target.checked ? 'double-dark-chocolate-chip-and-sea-salt' : '');
               
 
               // Clear quantity if checkbox is unchecked
               if (isCookie4Checked) {
                 setDoubleDarkChocolateQuantity(0); // Reset local state
                 setValue('cookie-4-quantity', ''); // Clear form value
-                setValue('cookie-4-no-cashews-selected', false);
+                // setValue('cookie-4-no-cashews-selected', false);
               }
             }}
           />
-          #4 <b> Dark Chocolate Cashew & Sea Salt</b>; 9&quot; round, double layered made with dark chocolate chips, sea
+          #4 <b> Dark Chocolate Chip & Sea Salt</b>; 9&quot; round, double layered made with dark chocolate chips, sea
           salt, and cashews, vanilla frosted (**dairy free)
         </label>
         <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', marginLeft: '25px' }}>
@@ -358,10 +358,10 @@ const Form = () => {
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
-            <label>
+            {/* <label>
               <input type="checkbox" {...register('cookie-4-no-cashews-selected')} disabled={!isCookie4Checked} /> No
               Cashews
-            </label>
+            </label> */}
             <span style={{ marginLeft: '10px' }}>
               Price: ${(DOUBLE_DARK_CHOCOLATE_PRICE - (watch('cookie-4-no-cashews-selected') ? 4 : 0)).toFixed(2)}
             </span>
