@@ -53,20 +53,20 @@ const Form = () => {
     data['total-price'] = totalPrice; // Add total price to the data object
 
     const cleanedData = Object.fromEntries(Object.entries(data).filter(([_, value]) => value));
-
+ window.location.href = '/thank-you';
     try {
-      const response = await emailjs.sendForm(
-        'service_5xwvrum',
-        'template_icx3u2c',
-        '#cookies-order',
-        'BVsL3cTPaRR3vE4FH',
-      );
+      // const response = await emailjs.sendForm(
+      //   'service_5xwvrum',
+      //   'template_icx3u2c',
+      //   '#cookies-order',
+      //   'BVsL3cTPaRR3vE4FH',
+      // );
 
       // Store the cleaned data in local storage
       localStorage.setItem('formData', JSON.stringify(cleanedData));
 
       console.log('SUCCESS!', response.status, response.text, JSON.stringify(cleanedData));
-      window.location.href = '/thank-you';
+     
     } catch (error) {
       console.log('FAILED...', error);
     }
