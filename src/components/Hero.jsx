@@ -16,19 +16,18 @@ const intro =
 const content = `${intro}`;
 const CookieIngredients = () => (
   <div>
-        <p style={{ fontWeight: 'bold', textAlign: 'center', fontSize: "20px" }}>Our cookies are made with: </p>
-      <div style={{ marginLeft: '20px', display: 'flex', alignItems:'center', flexDirection:'column' }}>
-    <ul style={{ listStyle: 'disc', textAlign: 'left' }}>
-      <li> Organic Cane & Brown Sugars</li>
-      <li>Organic Madagascar Vanilla</li>
-      <li>Guittard Baking Chips</li>
-      <li>King Arthur Flour</li>
-      <li>Cage-Free Eggs </li>
-      <li> Plant-Based Butter</li>
-    </ul>
+    <p style={{ fontWeight: 'bold', textAlign: 'center', fontSize: '20px' }}>Our cookies are made with: </p>
+    <div style={{ marginLeft: '20px', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <ul style={{ listStyle: 'disc', textAlign: 'left' }}>
+        <li> Organic Cane & Brown Sugars</li>
+        <li>Organic Madagascar Vanilla</li>
+        <li>Guittard Baking Chips</li>
+        <li>King Arthur Flour</li>
+        <li>Cage-Free Eggs</li>
+        <li>Plant-Based Butter</li>
+      </ul>
+    </div>
   </div>
-  </div>
-
 );
 export const Hero = (props) => {
   console.log(props);

@@ -99,23 +99,23 @@ font-family: 'Poppins', sans-serif;
 
   if (!formData) {
     return (
-      <div style={{ textAlign: 'center' }}>
+      <Container style={{ textAlign: 'center', paddingTop: '50px' }}>
         <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center" data-sb-field-path="heading">
           Thank you!
         </h3>
         <p>Your order has been received, but no order data was found.</p>
-      </div>
+      </Container>
     );
   }
 
   return (
     <Container>
       <div style={{ textAlign: 'center' }} className="w-full max-w-xl mx-auto flex-1">
-        <div style={{ marginTop: '20px' }}>
+        <div>
           <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center" data-sb-field-path="heading">
             Thank you for your order!
           </h3>
-          <p>Your order has been successfully placed. Here are the details:</p>
+          <p style={{marginBottom: '20px'}} >Your order has been successfully placed. Here are the details:</p>
 
           {/* Order Details */}
           <div style={{ textAlign: 'center', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9', width: '80%' }}>
