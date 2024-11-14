@@ -16,7 +16,7 @@ const About = () => {
           At Oak and Pine Bakery, we believe that nourishment goes beyond just the body; it encompasses the mind and
           spirit as well. Rooted in our faith, we put God first in everything we do, crafting each product with care and
           intention. Our commitment to health is reflected in our selection of wholesome ingredients, ensuring that
-          every bite is both delicious and beneficial. Our goal is to create goods that bring people together to celebratelife's moments, 
+          every bite is both delicious and beneficial. Our goal is to create goods that bring people together to celebrate life&apos;s moments, 
           while savoring the joy and warmth of backed threats that uplift the spirit.
           Join us on this journey of wellness and joy, as we share our passion for baking with heart and purpose.
         </p>
