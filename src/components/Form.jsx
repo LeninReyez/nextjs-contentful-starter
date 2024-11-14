@@ -35,7 +35,12 @@ const Form = () => {
 
   const isBlockedDate = (date) => {
     const day = date.getDay();
-    return day === 2 || day === 5;  // unblock Tuesday (2) and Friday (5)
+    
+    // Check if the date is November 27th (regardless of the year)
+    const isNovember27 = date.getMonth() === 10 && date.getDate() === 27; // November is month 10 (zero-based index)
+  
+    // Block Tuesday (2), Friday (5), and November 27th
+    return day === 2 || day === 5 || isNovember27;
   };
 
   const onSubmit = async (data) => {
