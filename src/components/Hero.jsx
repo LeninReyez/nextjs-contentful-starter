@@ -15,16 +15,18 @@ const intro =
   "At Oak & Pine Bakehouse, we believe that indulgence can be both delicious and mindful. Whether you're craving a sweet treat or celebrating a special occasion, our freshly made cookie cakes and frostings are crafted with care using premium, and often organic and locally sourced ingredients. We prioritize quality and strive to minimize artificial and harmful additives, ensuring you can enjoy a delightful dessert without compromise. Join us in savoring the joy of treats that nourish both body and soul.";
 const content = `${intro}`;
 const CookieIngredients = () => (
-  <div style={{ marginLeft: '20px' }}>
-    <p style={{ fontWeight: 'bold', textAlign: 'left' }}>Our cookies are made with: </p>
-    <ul style={{ listStyle: 'disc', textAlign: 'left' }}>
-      <li> Organic Cane & Brown Sugars</li>
-      <li>Organic Madagascar Vanilla</li>
-      <li>Guittard Baking Chips</li>
-      <li>King Arthur Flour</li>
-      <li>Cage-Free Eggs </li>
-      <li> Plant-Based Butter</li>
-    </ul>
+  <div>
+    <p style={{ fontWeight: 'bold', textAlign: 'center', fontSize: '20px' }}>Our cookies are made with: </p>
+    <div style={{ marginLeft: '20px', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <ul style={{ listStyle: 'disc', textAlign: 'left' }}>
+        <li> Organic Cane & Brown Sugars</li>
+        <li>Organic Madagascar Vanilla</li>
+        <li>Guittard Baking Chips</li>
+        <li>King Arthur Flour</li>
+        <li>Cage-Free Eggs</li>
+        <li>Plant-Based Butter</li>
+      </ul>
+    </div>
   </div>
 );
 export const Hero = (props) => {

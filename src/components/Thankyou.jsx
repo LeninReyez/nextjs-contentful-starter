@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 const ThankYouContent = () => {
   const [formData, setFormData] = useState(null);
@@ -23,36 +24,106 @@ const ThankYouContent = () => {
     }
   }, []);
 
+  // Main Heading Style
+const MainHeading = styled.h1`
+font-family: 'Poppins', sans-serif;
+font-size: 3rem;
+font-weight: 700;
+color: #ff6347;  /* A vibrant coral color */
+text-align: center;
+margin: 20px 0;
+text-transform: uppercase;
+letter-spacing: 2px;
+position: relative;
+animation: fadeIn 2s ease-in-out;
+
+&::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 5px;
+  background-color: #ff6347;
+  border-radius: 2px;
+  animation: slide 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide {
+  from {
+    width: 0;
+  }
+  to {
+    width: 50px;
+  }
+}
+`;
+
+// Sub Heading Style
+const SubHeading = styled.h2`
+font-family: 'Poppins', sans-serif;
+font-size: 1.2rem;
+font-weight: 400;
+color: #555;
+text-align: center;
+max-width: 600px;
+margin: 0 auto;
+line-height: 1.5;
+padding: 10px;
+`;
+
+// Container Style
+const Container = styled.div`
+background-color: #f9f9f9;
+padding: 50px 20px;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+font-family: 'Poppins', sans-serif;
+`;
+
   console.log(formData); // Debugging line to check the data
 
   if (!formData) {
     return (
-      <div style={{ textAlign: 'center' }}>
+      <Container style={{ textAlign: 'center', paddingTop: '50px' }}>
         <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center" data-sb-field-path="heading">
           Thank you!
         </h3>
         <p>Your order has been received, but no order data was found.</p>
-      </div>
+      </Container>
     );
   }
 
   return (
-    <div>
+    <Container>
       <div style={{ textAlign: 'center' }} className="w-full max-w-xl mx-auto flex-1">
-        <div style={{ marginTop: '20px' }}>
+        <div>
           <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center" data-sb-field-path="heading">
             Thank you for your order!
           </h3>
-          <p>Your order has been successfully placed. Here are the details:</p>
+          <p style={{marginBottom: '20px'}} >Your order has been successfully placed. Here are the details:</p>
 
           {/* Order Details */}
           <div style={{ textAlign: 'center', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9', width: '80%' }}>
-            <h2>Order Summary:</h2>
+            <SubHeading>Order Summary:</SubHeading>
 
             {/* Render Cookie Selections */}
             <div style={{ marginBottom: '20px' }}>
-              <h3>Cookie Order:</h3>
-              <ul style={{ listStyleType: 'none', padding: 0 }}>
+              <ul style={{ listStyleType: 'none', padding: 0, textAlign: 'left' }}>
                 {formData['cookie-1'] && (
                   <li style={{ margin: '10px 0', padding: '10px', borderBottom: '1px solid #ddd' }}>
                     <strong>{formData['cookie-1']}:</strong> {formData['cookie-1-quantity']} quantity
@@ -83,8 +154,8 @@ const ThankYouContent = () => {
 
             {/* Render Additional Information */}
             <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-              <h3>Additional Details:</h3>
-              <ul style={{ listStyleType: 'none', padding: 0 }}>
+              <SubHeading>Additional Details:</SubHeading>
+              <ul style={{ listStyleType: 'none', padding: 0, textAlign: 'left' }}>
                 {formData['custom-message'] && (
                   <li style={{ margin: '10px 0', padding: '10px', borderBottom: '1px solid #ddd' }}>
                     <strong>Custom Message:</strong> {formData['custom-message']}
@@ -104,8 +175,8 @@ const ThankYouContent = () => {
 
             {/* Render Contact Information */}
             <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-              <h3>Contact Information:</h3>
-              <ul style={{ listStyleType: 'none', padding: 0 }}>
+              <SubHeading>Contact Information:</SubHeading>
+              <ul style={{ listStyleType: 'none', padding: 0, textAlign: 'left' }}>
                 <li style={{ margin: '10px 0', padding: '10px', borderBottom: '1px solid #ddd' }}>
                   <strong>Name:</strong> {formData['name']}
                 </li>
@@ -123,7 +194,7 @@ const ThankYouContent = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
