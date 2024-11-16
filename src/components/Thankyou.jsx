@@ -6,7 +6,7 @@ const MainHeading = styled.h1`
   font-family: 'Poppins', sans-serif;
   font-size: 3rem;
   font-weight: 700;
-  color: #ff6347; /* A vibrant coral color */
+  color: #ff6347;  /* A vibrant coral color */
   text-align: center;
   margin: 20px 0;
   text-transform: uppercase;
@@ -77,14 +77,14 @@ const PrintButton = styled.button`
   margin-top: 20px;
   margin-bottom: 20px;
   width: 50%;
-  background-color: #4caf50;
+  background-color: #4CAF50;
   color: white;
   border: none;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-
+  
   &:hover {
     background-color: #45a049;
   }
@@ -120,7 +120,9 @@ const ThankYouContent = () => {
   if (!formData) {
     return (
       <Container style={{ textAlign: 'center', paddingTop: '50px' }}>
-        <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center">Thank you!</h3>
+        <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center">
+          Thank you!
+        </h3>
         <p>Your order has been received, but no order data was found.</p>
       </Container>
     );
@@ -128,23 +130,16 @@ const ThankYouContent = () => {
 
   return (
     <Container>
-      <div style={{ textAlign: 'center' }} className="w-full max-w-xl mx-auto flex-1">
+
+      <div style={{ textAlign: 'center', height: '100vh' }} className="w-full max-w-xl mx-auto flex-1">
         <div>
-          <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center">Thank you for your order!</h3>
+          <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center">
+            Thank you for your order!
+          </h3>
           <p style={{ marginBottom: '20px' }}>Your order has been successfully placed. Here are the details:</p>
 
           {/* Order Details */}
-          <div
-            style={{
-              textAlign: 'center',
-              margin: '0 auto',
-              padding: '20px',
-              border: '1px solid #ccc',
-              borderRadius: '5px',
-              backgroundColor: '#f9f9f9',
-              width: '80%',
-            }}
-          >
+          <div style={{ textAlign: 'center', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9', width: '80%' }}>
             <SubHeading>Order Summary:</SubHeading>
 
             {/* Render Cookie Selections */}
@@ -219,9 +214,10 @@ const ThankYouContent = () => {
             </div>
           </div>
         </div>
-        {/* Print Button */}
-        <PrintButton onClick={handlePrint}>Print</PrintButton>
+                    {/* Print Button */}
+                    <PrintButton onClick={handlePrint}>Print</PrintButton>
       </div>
+
     </Container>
   );
 };

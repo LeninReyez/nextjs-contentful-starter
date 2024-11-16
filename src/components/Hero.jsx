@@ -1,6 +1,7 @@
 'use client';
 import Markdown from 'markdown-to-jsx';
 import 'react-photo-view/dist/react-photo-view.css';
+import Footer from '../components/Footer.jsx'
 import { PhotoProvider, PhotoView } from 'react-image-previewer';
 
 import Image from 'next/image';
@@ -33,7 +34,7 @@ export const Hero = (props) => {
   console.log(props);
   return (
     <>
-      <div className="px-6 py-16 sm:px-12 sm:py-24" data-sb-object-id={props.id}>
+      <div style={{height: '100vh'}} className="px-6 py-16 sm:px-12 sm:py-24" data-sb-object-id={props.id}>
         <div
           className={`max-w-6xl mx-auto flex flex-col-reverse md:flex-row gap-12 md:items-center ${
             themeClassMap[props.theme] ?? themeClassMap['imgRight']
@@ -57,7 +58,9 @@ export const Hero = (props) => {
             <img src="/oakandpinelogo.png" alt="oak & pine bakehouse logo" />
           </div>
         </div>
+        
       </div>
+      <Footer />
     </>
   );
 };
