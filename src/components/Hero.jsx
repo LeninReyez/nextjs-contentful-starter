@@ -40,7 +40,7 @@ export const Hero = (props) => {
             themeClassMap[props.theme] ?? themeClassMap['imgRight']
           }`}
         >
-          <div className="w-full max-w-xl mx-auto flex-1">
+          <div style={{minHeight: '510px'}} className="w-full max-w-xl mx-auto flex-1">
             <h3 className="text-center mb-6 text-3xl font-bold sm:text-4x1 sm:text-center" data-sb-field-path="heading">
               {heading}
             </h3>
