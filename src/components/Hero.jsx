@@ -35,8 +35,7 @@ export const Hero = (props) => {
   return (
     <>
       <div className="px-6 py-16 sm:px-12 sm:py-24" data-sb-object-id={props.id}>
-        <div
-        style={{height: '100vh'}} 
+        <div 
           className={`max-w-6xl mx-auto flex flex-col-reverse md:flex-row gap-12 md:items-center ${
             themeClassMap[props.theme] ?? themeClassMap['imgRight']
           }`}
