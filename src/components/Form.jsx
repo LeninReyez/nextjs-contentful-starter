@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../../styles/styles.css';
 import { format } from 'date-fns'; // Add this import at the top
+import App from '../components/PayPal'
 
 const Form = () => {
   const {
@@ -466,7 +467,7 @@ const Form = () => {
         required: 'Please select a contact method',
       })}
 
-      <button
+      {/* <button
         type="submit"
         style={{
           marginTop: '20px',
@@ -478,7 +479,8 @@ const Form = () => {
         }}
       >
         Submit
-      </button>
+      </button> */}
+      <App/>
     </form>
   );
 };
