@@ -9,6 +9,17 @@ const ThankYou = () => {
     <>
       <Navbar />
       <ThankYouContent/>
+      <footer
+        style={{
+          backgroundColor: '#333',
+          color: 'white',
+          textAlign: 'center',
+          fontSize: '14px',
+          padding: '20px', // Added padding here
+        }}
+      >
+        <p>© 2024 Oak &amp; Pine Bakehouse. All Rights Reserved.</p>
+      </footer>
     </>
   );
 };

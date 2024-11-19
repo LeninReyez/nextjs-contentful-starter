@@ -131,7 +131,7 @@ const ThankYouContent = () => {
   return (
     <Container>
 
-      <div style={{ textAlign: 'center', height: '100vh' }} className="w-full max-w-xl mx-auto flex-1">
+      <div style={{ textAlign: 'center', height: 'calc(100vh - 141px)' }} className="w-full max-w-xl mx-auto flex-1">
         <div>
           <h3 className="text-center mb-6 text-3xl font-bold sm:text-4xl sm:text-center">
             Thank you for your order!
@@ -189,7 +189,7 @@ const ThankYouContent = () => {
                   <strong>Total Price:</strong> ${formData['total-price']}
                 </li>
                 <li style={{ margin: '10px 0', padding: '10px', borderBottom: '1px solid #ddd' }}>
-                  <strong>Selected Delivery Date:</strong> {formData['selectedDate']}
+                  <strong>Selected Pickup Date:</strong> {formData['selectedDate']}
                 </li>
               </ul>
             </div>
