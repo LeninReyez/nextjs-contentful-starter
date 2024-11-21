@@ -33,6 +33,7 @@ const Form = () => {
   const [isCookie3Checked, setIsCookie3Checked] = useState(false);
   const [isCookie4Checked, setIsCookie4Checked] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [paymentData, setPaymentData] = useState(null); // state to hold payment data
 
   const isBlockedDate = (date) => {
     const day = date.getDay();
@@ -72,6 +73,12 @@ const Form = () => {
       localStorage.setItem('formData', JSON.stringify(cleanedData));
 
       console.log('SUCCESS!', response.status, response.text, JSON.stringify(cleanedData));
+
+       // Set the payment data in the state to be passed to the PayPal button
+    setPaymentData({
+      totalPrice: totalPrice,
+      formData: cleanedData,
+    });
      
     } catch (error) {
       console.log('FAILED...', error);
@@ -480,7 +487,8 @@ const Form = () => {
       >
         Submit
       </button> */}
-      <App/>
+       {/* PayPal Button */}
+       <App paymentData={paymentData} />
     </form>
   );
 };
