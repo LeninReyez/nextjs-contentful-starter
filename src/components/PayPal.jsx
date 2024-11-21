@@ -65,42 +65,82 @@ function App({ paymentData }) {
     const handleCreateOrder = async () => {
         console.log("Access token:", accessToken);
         console.log("Loading status before creating order: ", loading);
-
+    
         if (loading) {
             setMessage("Access token is still loading...");
             console.log("Token is loading, waiting...");
             return; // Prevent creating order if the token is still loading
         }
-
+    
         if (!accessToken) {
             throw new Error("Access token is missing");
         }
-
-        const formattedTotalPrice = totalPrice.toFixed(2);
-
+    
+        // Example item details
+        const itemPrice = 33.33;
+        const quantity = 3;
+        const itemTotal = (itemPrice * quantity).toFixed(2); // Calculate item total
+    
+        // Example tax, shipping, and handling values
+        const taxTotal = "0.00"; // No tax for this example
+        const shipping = "0.00"; // No shipping cost for this example
+        const handling = "0.00"; // No handling cost for this example
+        const shippingDiscount = "0.00"; // No discount for shipping
+        const discount = "0.00"; // No discount for this example
+    
+        // Calculate the total amount
+        const totalValue = (parseFloat(itemTotal) + parseFloat(taxTotal) + parseFloat(shipping) + parseFloat(handling) - parseFloat(shippingDiscount) - parseFloat(discount)).toFixed(2);
+    
+        // Create order payload
         const orderPayload = {
             intent: "CAPTURE",
             purchase_units: [
                 {
-                    reference_id: uuidv4(), // Create a unique order ID for the purchase
+                    reference_id: uuidv4(), // Generate a unique reference ID
                     amount: {
                         currency_code: "USD",
-                        value: formattedTotalPrice,
+                        value: totalValue, // This is the total amount
+                        breakdown: {
+                            item_total: {
+                                currency_code: "USD",
+                                value: itemTotal, // Total value of the items
+                            },
+                            shipping: {
+                                currency_code: "USD",
+                                value: shipping, // Shipping amount (set to "0.00" here)
+                            },
+                            handling: {
+                                currency_code: "USD",
+                                value: handling, // Handling amount (set to "0.00" here)
+                            },
+                            tax_total: {
+                                currency_code: "USD",
+                                value: taxTotal, // Tax amount (set to "0.00" here)
+                            },
+                            discount: {
+                                currency_code: "USD",
+                                value: discount, // Discount amount (set to "0.00" here)
+                            },
+                            shipping_discount: {
+                                currency_code: "USD",
+                                value: shippingDiscount, // Shipping discount (set to "0.00" here)
+                            }
+                        }
                     },
                     items: [
                         {
                             name: "Product 1",
                             unit_amount: {
                                 currency_code: "USD",
-                                value: "33.33", // Example item price
+                                value: itemPrice.toFixed(2), // Price per unit
                             },
-                            quantity: "3", // Example quantity
-                        },
-                    ],
-                },
-            ],
+                            quantity: quantity.toString(), // Quantity of the items
+                        }
+                    ]
+                }
+            ]
         };
-
+    
         try {
             // Send the order creation request to PayPal's API
             const response = await fetch("https://api.sandbox.paypal.com/v2/checkout/orders", {
@@ -111,9 +151,9 @@ function App({ paymentData }) {
                 },
                 body: JSON.stringify(orderPayload),
             });
-
+    
             const orderData = await response.json();
-
+    
             if (orderData.id) {
                 console.log("Order ID:", orderData.id);
                 return orderData.id; // Return the PayPal order ID
@@ -126,6 +166,8 @@ function App({ paymentData }) {
             setMessage(`Could not initiate PayPal Checkout... ${error.message}`);
         }
     };
+    
+    
 
     // The function to handle when the user approves the payment
     const handleApprove = async (data, actions) => {
