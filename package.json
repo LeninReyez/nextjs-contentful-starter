@@ -18,7 +18,8 @@
     "react-hook-form": "^7.53.1",
     "react-image-previewer": "^1.1.6",
     "react-photo-view": "^1.2.6",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@stackbit/cms-contentful": "^1.0.0",

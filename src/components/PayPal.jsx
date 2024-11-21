@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { v4 as uuidv4 } from 'uuid'; // Importing the uuid library
 
 // Renders errors or successful transactions on the screen.
 function Message({ content }) {
@@ -19,14 +20,14 @@ function App({ paymentData }) {
     };
 
     const [message, setMessage] = useState("");
-    const [accessToken, setAccessToken] = useState("");
+    const [accessToken, setAccessToken] = useState(null); // Initialize as null
     const [loading, setLoading] = useState(true); // Loading state for the token
-    const { totalPrice = 0, formData = {} } = paymentData || {}; // Safe destructuring
+    const { totalPrice = 1.00, formData = {} } = paymentData || {}; // Safe destructuring
 
     const clientId = "ARO-qZm7ACyfVN0MN7Kr9IoEeLMd8eocTRNlDrXquB2szC54YXqeRjVVa4Kf6quT4pg6v7BQWWi0KoQ3";
     const clientSecret = "EJjz82o8RFADwsFLsy5nRasrFp9_qFM2oDUla08gxo9Vh5uwyZUIwRCiOQUZvkwmHaBgAL594zXiZ0sC";
 
-    // Fetch access token when component mounts
+    // Fetch the access token inside useEffect to ensure it's only called once when the component mounts
     useEffect(() => {
         async function getAccessToken() {
             const credentials = `${clientId}:${clientSecret}`;
@@ -45,6 +46,7 @@ function App({ paymentData }) {
                 const data = await response.json();
                 if (data.access_token) {
                     setAccessToken(data.access_token); // Store token in state
+                    console.log("Access token retrieved successfully");
                 } else {
                     throw new Error('Failed to get PayPal access token');
                 }
@@ -56,26 +58,31 @@ function App({ paymentData }) {
             }
         }
 
-        getAccessToken();
-    }, []);
+        getAccessToken(); // Call the function to get the access token
+    }, []); // Empty dependency array to run only once when the component mounts
 
+    // The function to handle creating the order
     const handleCreateOrder = async () => {
+        console.log("Access token:", accessToken);
+        console.log("Loading status before creating order: ", loading);
+
         if (loading) {
             setMessage("Access token is still loading...");
-            return;
+            console.log("Token is loading, waiting...");
+            return; // Prevent creating order if the token is still loading
         }
-    
+
         if (!accessToken) {
             throw new Error("Access token is missing");
         }
-    
+
         const formattedTotalPrice = totalPrice.toFixed(2);
-    
+
         const orderPayload = {
             intent: "CAPTURE",
             purchase_units: [
                 {
-                    reference_id: "000001",
+                    reference_id: uuidv4(), // Create a unique order ID for the purchase
                     amount: {
                         currency_code: "USD",
                         value: formattedTotalPrice,
@@ -93,8 +100,9 @@ function App({ paymentData }) {
                 },
             ],
         };
-    
+
         try {
+            // Send the order creation request to PayPal's API
             const response = await fetch("https://api.sandbox.paypal.com/v2/checkout/orders", {
                 method: "POST",
                 headers: {
@@ -103,13 +111,12 @@ function App({ paymentData }) {
                 },
                 body: JSON.stringify(orderPayload),
             });
-    
+
             const orderData = await response.json();
-            
-            // Ensure the order ID exists in the response
+
             if (orderData.id) {
                 console.log("Order ID:", orderData.id);
-                return orderData.id;
+                return orderData.id; // Return the PayPal order ID
             } else {
                 console.error("Failed to create order:", orderData);
                 throw new Error("Error creating PayPal order");
@@ -119,8 +126,8 @@ function App({ paymentData }) {
             setMessage(`Could not initiate PayPal Checkout... ${error.message}`);
         }
     };
-    
 
+    // The function to handle when the user approves the payment
     const handleApprove = async (data, actions) => {
         try {
             const response = await fetch(`/api/orders/${data.orderID}/capture`, {
@@ -146,9 +153,14 @@ function App({ paymentData }) {
             }
         } catch (error) {
             console.error(error);
-            setMessage(`Sorry, your transaction could not be processed...${error.message || error}`);
+            setMessage(`Sorry, your transaction could not be processed... ${error.message || error}`);
         }
     };
+
+    // Ensure PayPalButtons only render after accessToken is available
+    if (loading) {
+        return <div>Loading...</div>; // Show a loading message if the token is still loading
+    }
 
     return (
         <div className="App">
@@ -160,7 +172,15 @@ function App({ paymentData }) {
                         color: "gold",
                         label: "paypal",
                     }}
-                    createOrder={handleCreateOrder} // Use the function here
+                    createOrder={async (data, actions) => {
+                        // Ensure the token is available before creating the order
+                        if (accessToken) {
+                            const orderID = await handleCreateOrder(); // Get the PayPal order ID
+                            return orderID; // Pass the order ID to the PayPal button
+                        } else {
+                            setMessage("Access token not available");
+                        }
+                    }}
                     onApprove={handleApprove}
                 />
             </PayPalScriptProvider>
