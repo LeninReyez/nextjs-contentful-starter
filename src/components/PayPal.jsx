@@ -7,10 +7,14 @@ function Message({ content }) {
     return <p>{content}</p>;
 }
 
+const clientId = "ARO-qZm7ACyfVN0MN7Kr9IoEeLMd8eocTRNlDrXquB2szC54YXqeRjVVa4Kf6quT4pg6v7BQWWi0KoQ3";
+const clientSecret = "EJjz82o8RFADwsFLsy5nRasrFp9_qFM2oDUla08gxo9Vh5uwyZUIwRCiOQUZvkwmHaBgAL594zXiZ0sC";
+
+
 function App({ paymentData }) {
 
     const initialOptions = {
-        "client-id": "test",
+        "client-id": clientId,
         "enable-funding": "venmo",
         "disable-funding": "",
         "buyer-country": "US",
@@ -25,8 +29,6 @@ function App({ paymentData }) {
     const [loading, setLoading] = useState(true); // Loading state for the token
     const { totalPrice = 1.00, formData = {} } = paymentData || {}; // Safe destructuring
 
-    const clientId = "ARO-qZm7ACyfVN0MN7Kr9IoEeLMd8eocTRNlDrXquB2szC54YXqeRjVVa4Kf6quT4pg6v7BQWWi0KoQ3";
-    const clientSecret = "EJjz82o8RFADwsFLsy5nRasrFp9_qFM2oDUla08gxo9Vh5uwyZUIwRCiOQUZvkwmHaBgAL594zXiZ0sC";
 
     // Fetch the access token inside useEffect to ensure it's only called once when the component mounts
     useEffect(() => {

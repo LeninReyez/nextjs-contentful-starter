@@ -34,6 +34,7 @@ const Form = () => {
   const [isCookie4Checked, setIsCookie4Checked] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [paymentData, setPaymentData] = useState(null); // state to hold payment data
+  const [showPayPal, setShowPayPal] = useState(false);
 
   const isBlockedDate = (date) => {
     const day = date.getDay();
@@ -63,7 +64,7 @@ const Form = () => {
     data['total-price'] = totalPrice; // Add total price to the data object
 
     const cleanedData = Object.fromEntries(Object.entries(data).filter(([_, value]) => value));
- window.location.href = '/thank-you';
+//  window.location.href = '/thank-you';
     try {
       // const response = await emailjs.sendForm(
       //   'service_5xwvrum',
@@ -75,13 +76,15 @@ const Form = () => {
       // Store the cleaned data in local storage
       localStorage.setItem('formData', JSON.stringify(cleanedData));
 
-      console.log('SUCCESS!', response.status, response.text, JSON.stringify(cleanedData));
+      // console.log('SUCCESS!', response.status, response.text, JSON.stringify(cleanedData));
 
        // Set the payment data in the state to be passed to the PayPal button
     setPaymentData({
       totalPrice: totalPrice,
       formData: cleanedData,
     });
+
+    setShowPayPal(true);    // Show PayPal button once form is valid
      
     } catch (error) {
       console.log('FAILED...', error);
@@ -477,7 +480,7 @@ const Form = () => {
         required: 'Please select a contact method',
       })}
 
-      {/* <button
+      <button
         type="submit"
         style={{
           marginTop: '20px',
@@ -489,9 +492,17 @@ const Form = () => {
         }}
       >
         Submit
-      </button> */}
+      </button>
        {/* PayPal Button */}
-       <App paymentData={paymentData} />
+             {/* Submit Button */}
+
+{/* Only render PayPal button if form is valid */}
+{showPayPal && (
+  <App 
+    paymentData={paymentData} 
+    onSubmit={onSubmit}  // Trigger the onSubmit inside the App component
+  />
+)}
     </form>
   );
 };
