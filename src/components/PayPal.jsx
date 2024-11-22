@@ -8,6 +8,7 @@ function Message({ content }) {
 }
 
 function App({ paymentData }) {
+
     const initialOptions = {
         "client-id": "test",
         "enable-funding": "venmo",
@@ -63,6 +64,7 @@ function App({ paymentData }) {
 
     // The function to handle creating the order
     const handleCreateOrder = async () => {
+        console.log(JSON.stringify(paymentData));
         console.log("Access token:", accessToken);
         console.log("Loading status before creating order: ", loading);
     
@@ -83,13 +85,13 @@ function App({ paymentData }) {
     
         // Example tax, shipping, and handling values
         const taxTotal = "0.00"; // No tax for this example
-        const shipping = "0.00"; // No shipping cost for this example
-        const handling = "0.00"; // No handling cost for this example
-        const shippingDiscount = "0.00"; // No discount for shipping
+        // const shipping = "0.00"; // No shipping cost for this example
+        // const handling = "0.00"; // No handling cost for this example
+        // const shippingDiscount = "0.00"; // No discount for shipping
         const discount = "0.00"; // No discount for this example
     
         // Calculate the total amount
-        const totalValue = (parseFloat(itemTotal) + parseFloat(taxTotal) + parseFloat(shipping) + parseFloat(handling) - parseFloat(shippingDiscount) - parseFloat(discount)).toFixed(2);
+        const totalValue = (parseFloat(itemTotal) + parseFloat(taxTotal) - parseFloat(discount)).toFixed(2);
     
         // Create order payload
         const orderPayload = {
@@ -105,25 +107,9 @@ function App({ paymentData }) {
                                 currency_code: "USD",
                                 value: itemTotal, // Total value of the items
                             },
-                            shipping: {
-                                currency_code: "USD",
-                                value: shipping, // Shipping amount (set to "0.00" here)
-                            },
-                            handling: {
-                                currency_code: "USD",
-                                value: handling, // Handling amount (set to "0.00" here)
-                            },
                             tax_total: {
                                 currency_code: "USD",
                                 value: taxTotal, // Tax amount (set to "0.00" here)
-                            },
-                            discount: {
-                                currency_code: "USD",
-                                value: discount, // Discount amount (set to "0.00" here)
-                            },
-                            shipping_discount: {
-                                currency_code: "USD",
-                                value: shippingDiscount, // Shipping discount (set to "0.00" here)
                             }
                         }
                     },

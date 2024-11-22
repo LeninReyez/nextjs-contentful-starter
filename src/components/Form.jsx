@@ -46,6 +46,9 @@ const Form = () => {
   };
 
   const onSubmit = async (data) => {
+    console.log(`--------------------------------`);
+    console.log(`--OnSubmit Ran------------------`);
+    console.log(`--------------------------------`);
     // Check if at least one checkbox is selected
     if (!isCookie1Checked && !isCookie2Checked && !isCookie3Checked && !isCookie4Checked) {
       alert('Please select at least one cookie option before submitting.');
