@@ -81,7 +81,7 @@ function App({ paymentData }) {
         }
     
         // Example item details
-        const itemPrice = 33.33;
+        const itemPrice = paymentData?.totalPrice ?? 0.00;
         const quantity = 3;
         const itemTotal = (itemPrice * quantity).toFixed(2); // Calculate item total
     
@@ -120,7 +120,7 @@ function App({ paymentData }) {
                             name: "Product 1",
                             unit_amount: {
                                 currency_code: "USD",
-                                value: itemPrice.toFixed(2), // Price per unit
+                                value: itemPrice, // Price per unit
                             },
                             quantity: quantity.toString(), // Quantity of the items
                         }
@@ -160,10 +160,11 @@ function App({ paymentData }) {
     // The function to handle when the user approves the payment
     const handleApprove = async (data, actions) => {
         try {
-            const response = await fetch(`/api/orders/${data.orderID}/capture`, {
+            const response = await fetch(`https://api-m.sandbox.paypal.com/v2/checkout/orders/${data.orderID}/capture`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    'Authorization': `Bearer ${accessToken}`,
                 },
             });
 

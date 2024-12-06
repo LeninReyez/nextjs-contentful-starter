@@ -489,12 +489,11 @@ const Form = () => {
           color: '#fff',
           border: 'none',
           borderRadius: '5px',
+          width: '50%'
         }}
       >
         Submit
       </button>
-       {/* PayPal Button */}
-             {/* Submit Button */}
 
 {/* Only render PayPal button if form is valid */}
 {showPayPal && (
