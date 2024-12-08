@@ -177,9 +177,10 @@ function App({ paymentData }) {
                 throw new Error(`${errorDetail.description} (${orderData.debug_id})`);
             } else {
                 const transaction = orderData.purchase_units[0].payments.captures[0];
-                setMessage(
-                    `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`
-                );
+                // setMessage(
+                //     `Transaction ${transaction.status}: ${transaction.id}. See console for all available details`
+                // );
+                window.location.href = '/thank-you';
                 console.log("Capture result", orderData, JSON.stringify(orderData, null, 2));
             }
         } catch (error) {
